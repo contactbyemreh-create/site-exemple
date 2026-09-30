@@ -241,7 +241,17 @@ function toast(msg, err) { const t = $('toast'); t.textContent = msg; t.classNam
 let chartP = null;
 function loadChart() {
   if (window.Chart) return Promise.resolve();
-  return chartP || (chartP = new Promise((ok, ko) => { const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js'; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }));
+  if (chartP) return chartP;
+  const urls = ['https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js', 'https://unpkg.com/chart.js@4.4.4/dist/chart.umd.min.js'];
+  const tryLoad = (i) => new Promise((ok, ko) => {
+    if (i >= urls.length) return ko(new Error('Chart.js indisponible'));
+    const s = document.createElement('script'); s.src = urls[i];
+    s.onload = () => (window.Chart ? ok() : tryLoad(i + 1).then(ok, ko));
+    s.onerror = () => { s.remove(); tryLoad(i + 1).then(ok, ko); };
+    document.head.appendChild(s);
+  });
+  chartP = tryLoad(0).catch((e) => { chartP = null; throw e; });
+  return chartP;
 }
 function onAccent(hex) { const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return '#fff'; const n = parseInt(m[1], 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255 > 0.62 ? '#14161B' : '#fff'; }
 function setAccent(c) { document.documentElement.style.setProperty('--accent', c); document.documentElement.style.setProperty('--on-accent', onAccent(c)); }
@@ -405,7 +415,7 @@ VIEWS.dashboard = async () => {
       { type: 'bar', label: 'Messages', data: o.series.messages, backgroundColor: '#1F2937', borderRadius: 4, yAxisID: 'y1' }] },
       options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } } },
         scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 10 } }, y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: '#F0F1F3' } }, y1: { beginAtZero: true, position: 'right', ticks: { precision: 0 }, grid: { drawOnChartArea: false } } } } });
-  } catch (e) { $('ch').parentElement.innerHTML = '<div class="empty">Graphique indisponible (connexion à Chart.js impossible).</div>'; }
+  } catch (e) { $('ch').parentElement.innerHTML = '<div class="empty">Graphique indisponible (bloqueur de publicité ou réseau ?). Les chiffres ci-dessus restent valables.</div>'; }
 };
 
 document.addEventListener('click', (e) => {
