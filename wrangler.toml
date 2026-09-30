@@ -1,0 +1,31 @@
+name = "moteur-client-demo"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# ⚠️ À chaque nouveau client : change ce "name" (ex: "moteur-golden-grill"),
+# crée une nouvelle base D1 et un nouveau bucket R2 pour lui — une copie complète et indépendante.
+
+[vars]
+# Mets l'adresse de ton site (ex: "https://mon-site.workers.dev") pour bloquer les autres origines.
+ALLOWED_ORIGIN = "*"
+# Expéditeur des emails de devis (Resend).
+# Test sans domaine : "Devis <onboarding@resend.dev>" -> n'envoie QU'à l'email de ton compte Resend.
+# Production : adresse d'un domaine vérifié dans Resend, ex: "Devis <devis@ton-domaine.fr>".
+RESEND_FROM = "Devis <onboarding@resend.dev>"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "moteur-client-demo-db"
+database_id = "COLLE_ICI_TON_DATABASE_ID"
+
+# Stockage des images (upload depuis l'espace pro). Crée le bucket avec :
+#   wrangler r2 bucket create moteur-client-demo-images
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "moteur-client-demo-images"
+
+# Secrets à définir avec `wrangler secret put <NOM>` :
+#   ADMIN_PASSWORD      -> code d'accès de l'espace pro
+#   ADMIN_TOKEN_SECRET  -> longue chaîne aléatoire pour signer les sessions admin
+#   RESEND_API_KEY      -> clé API Resend (re_...) pour l'envoi des devis
+#   CAL_WEBHOOK_KEY     -> (optionnel) clé secrète pour recevoir les RDV Cal.com dans l'espace pro

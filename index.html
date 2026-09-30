@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Votre Entreprise — Site démo ByEmreh</title>
+<meta name="description" content="Site de démonstration ByEmreh : produits, simulateur de devis, prise de rendez-vous et contact." />
+<meta name="theme-color" content="#FF5A2B" id="themeColor" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="config.js"></script>
+<style>
+  :root{
+    --accent:#FF5A2B; --on-accent:#fff;
+    --accent-lt:color-mix(in srgb, var(--accent) 9%, #fff);
+    --ink:#181A1F; --muted:#5F6672; --muted-dk:#8A909B;
+    --paper:#FAF9F7; --paper-dim:#F1EFEA; --border:#E7E4DD;
+    --ok:#1a7a3c; --err:#C0392B;
+    --ff-body:'Inter',system-ui,sans-serif; --ff-disp:'Space Grotesk','Inter',sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:5rem;}
+  body{font-family:var(--ff-body);color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;}
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:6px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 1.4rem;}
+  .hidden{display:none !important;}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+  /* ── Header ── */
+  header{position:sticky;top:0;z-index:100;}
+  header .glass-bar{position:absolute;inset:0 0 auto 0;height:5.2rem;background:rgba(250,249,247,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent);mask-image:linear-gradient(to bottom,#000 55%,transparent);pointer-events:none;}
+  nav{position:relative;max-width:1080px;margin:0 auto;padding:1.05rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+  .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--ff-disp);font-weight:700;font-size:1.15rem;}
+  .brand img{height:34px;width:34px;border-radius:8px;object-fit:cover;}
+  .nav-links{display:flex;gap:1.6rem;font-size:.88rem;font-weight:600;}
+  .nav-links a{color:var(--muted);transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{background:var(--accent);color:var(--on-accent);padding:.6rem 1.15rem;border-radius:99px;font-weight:700;font-size:.85rem;white-space:nowrap;box-shadow:0 8px 20px -8px var(--accent);}
+  @media(max-width:820px){.nav-links{display:none;}}
+
+  /* ── Boutons ── */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1.6rem;border-radius:99px;font-weight:700;font-size:.92rem;border:1.5px solid transparent;cursor:pointer;transition:transform .2s var(--ease),background .2s,border-color .2s,color .2s;text-align:center;}
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--ink);color:#fff;}
+  .btn-primary:hover{background:var(--accent);color:var(--on-accent);transform:translateY(-2px);}
+  .btn-accent{background:var(--accent);color:var(--on-accent);}
+  .btn-accent:hover{filter:brightness(.93);transform:translateY(-2px);}
+  .btn-secondary{background:#fff;color:var(--ink);border-color:var(--border);}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+  .btn[disabled]{opacity:.6;cursor:wait;transform:none;}
+  .btn-block{width:100%;}
+
+  /* ── Hero ── */
+  .hero{position:relative;padding:8rem 0 3.2rem;text-align:center;overflow:hidden;background:radial-gradient(60% 55% at 50% 0%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%);}
+  .hero-glow{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;background:var(--accent);}
+  .hero-glow.g1{width:420px;height:420px;top:-230px;left:-120px;opacity:.16;}
+  .hero-glow.g2{width:320px;height:320px;top:-150px;right:-100px;opacity:.12;}
+  .hero .wrap{position:relative;}
+  .hero-eyebrow{font-size:.82rem;font-weight:600;color:var(--accent);margin-bottom:1rem;}
+  .hero h1{font-family:var(--ff-disp);font-size:clamp(2.1rem,5vw,3.4rem);font-weight:700;line-height:1.1;max-width:760px;margin:0 auto 1.2rem;text-wrap:balance;}
+  .hero p{font-size:1.05rem;color:var(--muted);max-width:560px;margin:0 auto 2rem;}
+  .hero-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
+  .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem;margin-top:3rem;text-align:left;}
+  .quick a{display:flex;gap:.9rem;align-items:center;background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:1rem 1.1rem;transition:border-color .2s,transform .2s var(--ease);}
+  .quick a:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .quick .ico{width:42px;height:42px;border-radius:12px;background:var(--accent-lt);color:var(--accent);display:grid;place-items:center;flex-shrink:0;}
+  .quick strong{display:block;font-size:.93rem;font-family:var(--ff-disp);}
+  .quick span{font-size:.8rem;color:var(--muted);}
+  svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+  section{padding:3.8rem 0;}
+  .section-title{font-family:var(--ff-disp);font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:700;text-align:center;margin-bottom:.6rem;text-wrap:balance;}
+  .section-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 2.4rem;font-size:.95rem;}
+
+  /* ── Produits ── */
+  .prest-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.4rem;}
+  .prest-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1.5px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s var(--ease);}
+  .prest-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px rgba(0,0,0,.18);}
+  .prest-img{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--paper-dim);}
+  .prest-ph{aspect-ratio:3/2;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent-lt),color-mix(in srgb,var(--accent) 18%,#fff));color:var(--accent);font-family:var(--ff-disp);font-weight:700;font-size:1.6rem;}
+  .badge{position:absolute;top:.8rem;left:.8rem;background:var(--accent);color:var(--on-accent);font-size:.72rem;font-weight:700;padding:.28rem .65rem;border-radius:99px;}
+  .prest-body{display:flex;flex-direction:column;flex:1;padding:1.15rem 1.25rem 1.3rem;}
+  .prest-body h3{font-family:var(--ff-disp);font-size:1.08rem;margin-bottom:.35rem;}
+  .prest-body p{font-size:.87rem;color:var(--muted);margin-bottom:1rem;flex:1;white-space:pre-line;}
+  .prest-foot{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;}
+  .prest-price{font-family:var(--ff-disp);font-weight:700;font-size:1.05rem;}
+  .prest-foot .btn{padding:.6rem 1.15rem;font-size:.84rem;}
+  .skel{background:linear-gradient(90deg,var(--paper-dim) 25%,#f8f6f1 50%,var(--paper-dim) 75%);background-size:200% 100%;animation:sk 1.3s infinite;border-radius:18px;min-height:300px;}
+  @keyframes sk{to{background-position:-200% 0;}}
+
+  /* ── Simulateur ── */
+  .sim-section{background:var(--paper-dim);}
+  .sim-card{max-width:620px;margin:0 auto;background:#fff;border:1.5px solid var(--border);border-radius:22px;padding:1.8rem 1.8rem 2rem;box-shadow:0 24px 50px -24px rgba(0,0,0,.16);}
+  .sim-top{display:flex;align-items:center;gap:1rem;margin-bottom:1.6rem;font-size:.8rem;font-weight:600;color:var(--muted);}
+  .sim-progress{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden;}
+  .sim-progress i{display:block;height:100%;width:25%;background:var(--accent);border-radius:99px;transition:width .4s var(--ease);}
+  .sim-body{min-height:340px;}
+  .sim-step{display:none;}
+  .sim-step.active{display:block;animation:simIn .3s var(--ease);}
+  @keyframes simIn{from{opacity:0;transform:translateY(6px);}}
+  .sim-step h3{font-family:var(--ff-disp);font-size:1.2rem;margin-bottom:.4rem;outline:none;}
+  .sim-hint{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem;}
+  .sim-choice-grid{display:flex;flex-direction:column;gap:.65rem;margin:1.1rem 0 1.4rem;}
+  .sim-choice,.sim-option{display:flex;align-items:center;gap:.9rem;width:100%;text-align:left;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:.85rem 1.05rem;cursor:pointer;font-size:.92rem;transition:border-color .2s,background .2s;}
+  .sim-choice{font-weight:600;}
+  .sim-choice:hover,.sim-option:hover{border-color:color-mix(in srgb,var(--accent) 50%,var(--border));}
+  .sim-choice[aria-checked=true],.sim-option[aria-checked=true]{border-color:var(--accent);background:var(--accent-lt);}
+  .sim-choice small{margin-left:auto;color:var(--muted);font-weight:500;font-size:.8rem;}
+  .radio,.check{width:20px;height:20px;border:2px solid var(--border);flex-shrink:0;position:relative;transition:all .2s;}
+  .radio{border-radius:50%;} .check{border-radius:6px;}
+  [aria-checked=true] .radio,[aria-checked=true] .check{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px #fff;}
+  [aria-checked=true] .check{box-shadow:none;}
+  [aria-checked=true] .check::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid var(--on-accent);border-width:0 2px 2px 0;transform:rotate(45deg);}
+  .sim-option{margin-bottom:.65rem;}
+  .sim-option .txt{flex:1;} .sim-option strong{display:block;font-size:.9rem;} .sim-option .txt span{font-size:.79rem;color:var(--muted);}
+  .sim-opt-price{font-weight:700;color:var(--accent);font-size:.86rem;flex-shrink:0;}
+  input[type=range]{width:100%;accent-color:var(--accent);margin:1.2rem 0 .4rem;}
+  .range-scale{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted-dk);}
+  .sim-qty-label{text-align:center;font-family:var(--ff-disp);font-size:1.5rem;font-weight:700;margin:.6rem 0 1.4rem;}
+  .sim-qty-label strong{color:var(--accent);}
+  .sim-btn-row{display:flex;gap:.7rem;margin-top:1.3rem;} .sim-btn-row .btn-primary{flex:1;}
+  .sim-result{text-align:center;background:var(--paper);border:1.5px dashed var(--border);border-radius:16px;padding:1.2rem 1rem;margin:1rem 0 1.3rem;}
+  .sim-result small{display:block;color:var(--muted);font-size:.8rem;margin-bottom:.2rem;}
+  .sim-result-price{font-family:var(--ff-disp);font-size:2.2rem;font-weight:700;line-height:1.15;}
+  .sim-recap{font-size:.82rem;color:var(--muted);margin-top:.4rem;}
+  .sim-done{text-align:center;padding:1rem 0;}
+  .sim-done .tick{width:60px;height:60px;border-radius:50%;background:color-mix(in srgb,var(--ok) 12%,#fff);color:var(--ok);display:grid;place-items:center;margin:0 auto 1rem;}
+  .sim-done .tick svg{width:28px;height:28px;}
+
+  /* ── Formulaires ── */
+  .field{margin-bottom:1rem;text-align:left;}
+  .field label{display:block;font-size:.8rem;font-weight:600;margin-bottom:.35rem;color:var(--muted);}
+  .field input,.field select,.field textarea{width:100%;padding:.75rem .9rem;border:1.5px solid var(--border);border-radius:11px;font-family:var(--ff-body);font-size:.95rem;background:#fff;color:var(--ink);transition:border-color .2s,box-shadow .2s;}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent);}
+  .field textarea{resize:vertical;min-height:100px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+  @media(max-width:520px){.field-row{grid-template-columns:1fr;}.sim-card{padding:1.4rem 1.2rem 1.6rem;}}
+  .rgpd{font-size:.76rem;color:var(--muted-dk);margin:.2rem 0 1rem;}
+  .form-msg{font-size:.86rem;margin-top:.8rem;min-height:1.2em;}
+  .form-msg.ok{color:var(--ok);} .form-msg.err{color:var(--err);}
+
+  /* ── Rendez-vous ── */
+  .cal-frame{max-width:860px;margin:0 auto;background:#fff;border:1.5px solid var(--border);border-radius:20px;overflow:hidden;min-height:640px;}
+  .cal-frame iframe{width:100%;height:680px;border:0;display:block;}
+  .cal-fallback{padding:1rem;text-align:center;font-size:.85rem;color:var(--muted);}
+  .cal-fallback a{color:var(--accent);font-weight:600;text-decoration:underline;}
+
+  /* ── Blog ── */
+  .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem;}
+  .blog-card{text-align:left;background:#fff;border:1.5px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .25s var(--ease);padding:0;}
+  .blog-card:hover{transform:translateY(-3px);}
+  .blog-img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--paper-dim);}
+  .blog-body{padding:1.1rem 1.2rem 1.3rem;}
+  .blog-date{font-size:.76rem;font-weight:600;color:var(--muted-dk);margin-bottom:.35rem;}
+  .blog-body h3{font-family:var(--ff-disp);font-size:1.02rem;margin-bottom:.35rem;}
+  .blog-body p{font-size:.85rem;color:var(--muted);}
+  .article-overlay{position:fixed;inset:0;z-index:900;background:rgba(16,20,28,.72);backdrop-filter:blur(4px);padding:2.4rem 1.2rem;overflow-y:auto;display:none;}
+  .article-overlay.open{display:block;}
+  .article-panel{max-width:720px;margin:0 auto;background:#fff;border-radius:20px;padding:2.2rem;position:relative;}
+  .article-panel img{border-radius:14px;margin-bottom:1.2rem;max-height:340px;object-fit:cover;width:100%;}
+  .article-panel h2{font-family:var(--ff-disp);font-size:1.7rem;margin-bottom:.5rem;line-height:1.2;}
+  .article-panel .content{font-size:.97rem;line-height:1.8;color:#2b2f36;white-space:pre-wrap;}
+  .close-x{position:absolute;top:1rem;right:1rem;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:1rem;}
+
+  /* ── Contact ── */
+  .contact-section{background:var(--paper-dim);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:2.6rem;align-items:start;}
+  @media(max-width:760px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-info h3{font-family:var(--ff-disp);font-size:1.4rem;margin-bottom:1rem;}
+  .contact-info a,.contact-info p{display:block;color:var(--muted);font-size:.95rem;margin-bottom:.55rem;}
+  .contact-info a:hover{color:var(--accent);}
+  .contact-form{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:1.8rem;}
+  .hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden;}
+
+  footer{padding:2.2rem 0 5.5rem;text-align:center;color:var(--muted-dk);font-size:.82rem;}
+  footer a{text-decoration:underline;}
+  footer .sep{margin:0 .5rem;opacity:.5;}
+
+  /* ── Barre mobile ── */
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:120;display:none;gap:.6rem;padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-top:1px solid var(--border);}
+  .mbar .btn{flex:1;padding:.7rem .5rem;font-size:.86rem;}
+  @media(max-width:820px){.mbar{display:flex;}}
+
+  .toast{position:fixed;left:50%;bottom:5.2rem;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:.7rem 1.2rem;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:all .3s var(--ease);z-index:1000;max-width:90vw;}
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+  @media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;scroll-behavior:auto !important;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="glass-bar"></div>
+  <nav aria-label="Navigation principale">
+    <a href="#" class="brand"><img id="brandLogo" src="" alt="" width="34" height="34" class="hidden"/><span id="brandName">Votre Entreprise</span></a>
+    <div class="nav-links">
+      <a href="#produits">Produits</a>
+      <a href="#devis">Devis en ligne</a>
+      <a href="#rdv" id="navRdv" class="hidden">Rendez-vous</a>
+      <a href="#blog" id="navBlog" class="hidden">Actualités</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#devis" class="nav-cta" data-cta="nav">Demander un devis</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" style="padding-bottom:3.2rem">
+    <div class="hero-glow g1"></div><div class="hero-glow g2"></div>
+    <div class="wrap">
+      <div class="hero-eyebrow">Site de démonstration ByEmreh</div>
+      <h1 id="heroTagline">Un slogan clair, qui donne envie de vous faire confiance.</h1>
+      <p id="heroDescription">Décrivez ici votre activité en une ou deux phrases : ce que vous faites, pour qui, et ce qui vous rend différent.</p>
+      <div class="hero-actions">
+        <a href="#devis" class="btn btn-primary" data-cta="hero-devis">Estimer mon prix</a>
+        <a href="#rdv" class="btn btn-secondary hidden" id="heroRdv" data-cta="hero-rdv">Prendre rendez-vous</a>
+        <a href="#contact" class="btn btn-secondary" id="heroContact">Nous écrire</a>
+      </div>
+      <div class="quick" id="quick">
+        <a href="#produits" id="qShop"><span class="ico"><svg class="i" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span><div><strong id="qShopT">Nos offres</strong><span id="qShopS">Découvrir ce que nous proposons</span></div></a>
+        <a href="#devis"><span class="ico"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h8"/></svg></span><div><strong>Estimer mon prix</strong><span>Simulation en moins d'une minute</span></div></a>
+        <a href="#rdv" id="qRdv" class="hidden"><span class="ico"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div><strong>Réserver un créneau</strong><span>Choisissez le jour et l'heure</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="produits">
+    <div class="wrap">
+      <h2 class="section-title">Nos produits et prestations</h2>
+      <p class="section-sub">Commandez en ligne en un clic, ou demandez un devis pour une offre sur mesure.</p>
+      <div class="prest-grid" id="prestGrid"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+    </div>
+  </section>
+
+  <section id="devis" class="sim-section">
+    <div class="wrap">
+      <h2 class="section-title">Simulateur de devis</h2>
+      <p class="section-sub" id="simIntro">Choisissez votre besoin, ajustez les options : vous obtenez une estimation immédiate, sans engagement.</p>
+
+      <div class="sim-card" id="simCard">
+        <div class="sim-top"><span id="simStepLabel">Étape 1 sur 4</span><div class="sim-progress"><i id="simFill"></i></div></div>
+        <div class="sim-body">
+          <div class="sim-step active" data-step="1">
+            <h3 tabindex="-1">Quelle prestation vous intéresse ?</h3>
+            <div class="sim-choice-grid" id="simChoices" role="radiogroup" aria-label="Prestation"></div>
+            <div class="sim-btn-row"><button class="btn btn-primary" data-go="2">Continuer</button></div>
+          </div>
+          <div class="sim-step" data-step="2">
+            <h3 tabindex="-1" id="qtyTitle">Quelle quantité ?</h3>
+            <p class="sim-hint">Faites glisser pour ajuster.</p>
+            <input type="range" id="simQty" min="1" max="30" value="5" aria-labelledby="qtyTitle"/>
+            <div class="range-scale"><span id="qtyMin">1</span><span id="qtyMax">30</span></div>
+            <div class="sim-qty-label"><strong id="simQtyVal">5</strong> <span id="simUnit">unité(s)</span></div>
+            <div class="sim-btn-row"><button class="btn btn-secondary" data-go="1">Retour</button><button class="btn btn-primary" data-go="3">Continuer</button></div>
+          </div>
+          <div class="sim-step" data-step="3">
+            <h3 tabindex="-1">Des options en plus ?</h3>
+            <p class="sim-hint">Facultatif — cochez ce qui vous intéresse.</p>
+            <div id="simOptions"></div>
+            <div class="sim-btn-row"><button class="btn btn-secondary" data-go="2">Retour</button><button class="btn btn-primary" data-go="4" id="simToResult">Voir mon estimation</button></div>
+          </div>
+          <div class="sim-step" data-step="4">
+            <h3 tabindex="-1" id="resTitle">Votre estimation</h3>
+            <div class="sim-result" id="simResult"></div>
+            <div class="field-row">
+              <div class="field"><label for="simNom">Nom</label><input type="text" id="simNom" autocomplete="name" required/></div>
+              <div class="field"><label for="simTel">Téléphone</label><input type="tel" id="simTel" autocomplete="tel"/></div>
+            </div>
+            <div class="field"><label for="simEmail">Email</label><input type="email" id="simEmail" autocomplete="email" required/></div>
+            <div class="field"><label for="simMsg">Précisions (facultatif)</label><textarea id="simMsg" style="min-height:70px"></textarea></div>
+            <input type="text" id="simWebsite" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+            <p class="rgpd">Vos coordonnées servent uniquement à vous répondre au sujet de cette demande.</p>
+            <div class="sim-btn-row" style="margin-top:0"><button class="btn btn-secondary" data-go="3">Retour</button><button class="btn btn-accent" id="simSend" style="flex:1">Envoyer ma demande</button></div>
+            <p class="form-msg" id="simFormMsg" role="alert"></p>
+          </div>
+          <div class="sim-step" data-step="5">
+            <div class="sim-done">
+              <div class="tick"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h3 tabindex="-1">Demande envoyée</h3>
+              <div class="sim-result" id="simDoneResult" style="margin:1rem 0"></div>
+              <p class="sim-hint" id="simDoneText"></p>
+              <button class="btn btn-secondary" id="simReset">Faire une nouvelle simulation</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rdv" class="hidden">
+    <div class="wrap">
+      <h2 class="section-title">Prendre rendez-vous</h2>
+      <p class="section-sub">Choisissez directement le créneau qui vous arrange : la confirmation arrive par email.</p>
+      <div class="cal-frame" id="calFrame"></div>
+      <p class="cal-fallback" id="calFallback"></p>
+    </div>
+  </section>
+
+  <section id="blog" class="hidden">
+    <div class="wrap">
+      <h2 class="section-title">Actualités</h2>
+      <p class="section-sub">Conseils et nouveautés.</p>
+      <div class="blog-grid" id="blogGrid"></div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="wrap">
+      <h2 class="section-title">Parlons de votre projet</h2>
+      <p class="section-sub">Une question, une demande particulière ? Écrivez-nous, vous recevez une confirmation.</p>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3 id="contactNom">Votre Entreprise</h3>
+          <p id="contactAdresse">Marseille, France</p>
+          <a id="contactTel" href="#">06 00 00 00 00</a>
+          <a id="contactEmail" href="#">contact@votre-entreprise.fr</a>
+        </div>
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="field-row">
+            <div class="field"><label for="cNom">Nom</label><input type="text" id="cNom" autocomplete="name" required/></div>
+            <div class="field"><label for="cTel">Téléphone</label><input type="tel" id="cTel" autocomplete="tel"/></div>
+          </div>
+          <div class="field"><label for="cEmail">Email</label><input type="email" id="cEmail" autocomplete="email" required/></div>
+          <div class="field"><label for="cPrestation">Sujet</label><select id="cPrestation"><option value="">Question générale</option></select></div>
+          <div class="field"><label for="cMessage">Votre message</label><textarea id="cMessage" required></textarea></div>
+          <input type="text" id="cWebsite" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+          <p class="rgpd">Vos coordonnées servent uniquement à vous répondre.</p>
+          <button type="submit" class="btn btn-primary btn-block" id="cSend">Envoyer le message</button>
+          <p class="form-msg" id="contactMsg" role="alert"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© <span id="yearNow"></span> <span id="footerNom">Votre Entreprise</span><span class="sep">|</span>Site de démonstration conçu par <a href="https://byemreh.fr" target="_blank" rel="noopener">ByEmreh</a><span class="sep">|</span><a href="admin.html" rel="nofollow">Espace pro</a></p>
+</footer>
+
+<div class="mbar" id="mbar">
+  <a href="#devis" class="btn btn-primary" data-cta="mbar-devis">Estimer mon prix</a>
+  <a href="#rdv" class="btn btn-accent hidden" id="mbarRdv" data-cta="mbar-rdv">Prendre RDV</a>
+  <a href="#contact" class="btn btn-secondary" id="mbarContact">Écrire</a>
+</div>
+
+<div class="article-overlay" id="articleOverlay" role="dialog" aria-modal="true" aria-labelledby="articleTitre">
+  <div class="article-panel">
+    <button class="close-x" id="articleClose" aria-label="Fermer">✕</button>
+    <img id="articleImg" class="hidden" alt="" />
+    <div class="blog-date" id="articleDate"></div>
+    <h2 id="articleTitre"></h2>
+    <div class="content" id="articleContenu"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const API = ((window.APP_CONFIG || {}).API_BASE || '').replace(/\/$/, '');
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = (n) => Number(n).toLocaleString('fr-FR');
+const img = (u) => (/^https?:/.test(u) ? u : API + u);
+$('yearNow').textContent = new Date().getFullYear();
+
+/* ══════════ Données de démonstration (si l'API n'est pas encore branchée) ══════════ */
+const DEMO = {
+  config: { nom_entreprise: 'Votre Entreprise', tagline: 'Un slogan clair, qui donne envie de vous faire confiance.', description: 'Décrivez ici votre activité en une ou deux phrases : ce que vous faites, pour qui, et ce qui vous rend différent.', couleur_primaire: '#FF5A2B', logo_url: '', email_contact: 'contact@votre-entreprise.fr', telephone: '06 00 00 00 00', adresse: 'Marseille, France', formspree_id: '', cal_link: '',
+    sim: { mode: 'affiche', unit_label: 'unité(s)', unit_price: 20, qty_min: 1, qty_max: 30, qty_default: 5, range_low: -10, range_high: 15, options: [
+      { key: 'premium', label: 'Option Premium', desc: 'Un service ou une finition haut de gamme', price: 30 },
+      { key: 'express', label: 'Traitement express', desc: 'Livraison ou intervention accélérée', price: 20 },
+      { key: 'accompagnement', label: 'Accompagnement personnalisé', desc: 'Un suivi dédié tout au long de la prestation', price: 40 }] } },
+  prestations: [
+    { id: 1, titre: 'Votre premier produit', description: 'Présentez ici ce que vous vendez, avec vos mots.', prix_affiche: 'À partir de 50€', image_url: '', stripe_url: '', bouton_label: '', badge: 'Nouveau', prix_base: null },
+    { id: 2, titre: 'Votre deuxième offre', description: 'Une deuxième prestation, avec son propre tarif.', prix_affiche: 'Sur devis', image_url: '', stripe_url: '', bouton_label: '', badge: '', prix_base: null },
+    { id: 3, titre: 'Un pack ou une formule', description: 'Regroupez plusieurs prestations en une offre packagée.', prix_affiche: 'À partir de 190€', image_url: '', stripe_url: '', bouton_label: '', badge: '', prix_base: null }],
+  articles: [{ titre: 'Comment bien préparer votre projet', slug: 'demo-1', extrait: 'Un exemple d\'article, pour montrer votre expertise avant le premier contact.', contenu: 'Chaque article publié depuis l\'espace pro apparaît ici automatiquement.', image_url: '', date_publication: new Date().toISOString() }]
+};
+
+let DATA = null, CFG = null, PRESTS = [];
+
+/* ══════════ Suivi anonyme (sans cookie) ══════════ */
+function track(type, label) {
+  if (!API || API.includes('TON-SOUS-DOMAINE')) return;
+  try { navigator.sendBeacon(API + '/api/track', new Blob([JSON.stringify({ type, label: label || '' })], { type: 'text/plain' })); } catch (e) { /* ignore */ }
+}
+(function trackView() {
+  try {
+    if (sessionStorage.getItem('v')) return;
+    sessionStorage.setItem('v', '1');
+    const p = new URLSearchParams(location.search);
+    let src = p.get('utm_source') || '';
+    if (!src && document.referrer) { const h = new URL(document.referrer).hostname; if (h !== location.hostname) src = h.replace(/^www\./, ''); }
+    track('view', src || 'direct');
+  } catch (e) { /* ignore */ }
+})();
+document.addEventListener('click', (e) => { const a = e.target.closest('[data-cta]'); if (a) track('cta_click', a.dataset.cta); });
+
+/* ══════════ Utilitaires d'affichage ══════════ */
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 3200); }
+function onAccent(hex) { const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return '#fff'; const n = parseInt(m[1], 16); const l = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; return l > 0.62 ? '#181A1F' : '#fff'; }
+const show = (id, on) => $(id).classList.toggle('hidden', !on);
+
+/* ══════════ Chargement ══════════ */
+async function loadSite(fresh) {
+  let cached = null;
+  try { cached = JSON.parse(localStorage.getItem('bootstrap_v2') || 'null'); } catch (e) { /* ignore */ }
+  if (cached && !fresh) render(cached); // affichage instantané au retour
+  try {
+    if (!API || API.includes('TON-SOUS-DOMAINE')) throw new Error('API non configurée');
+    const res = await fetch(API + '/api/bootstrap' + (fresh ? '?t=' + Date.now() : ''));
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    try { localStorage.setItem('bootstrap_v2', JSON.stringify(data)); } catch (e) { /* ignore */ }
+    if (JSON.stringify(data) !== JSON.stringify(DATA)) render(data);
+  } catch (e) {
+    console.info('API indisponible, mode démo.', e.message);
+    if (!DATA) render(DEMO);
+  }
+}
+
+function render(data) {
+  DATA = data; CFG = data.config; PRESTS = data.prestations || [];
+  const c = CFG;
+  document.title = c.nom_entreprise + ' — ' + c.tagline.slice(0, 60);
+  document.querySelector('meta[name=description]').content = (c.description || '').slice(0, 160);
+  document.documentElement.style.setProperty('--accent', c.couleur_primaire);
+  document.documentElement.style.setProperty('--on-accent', onAccent(c.couleur_primaire));
+  $('themeColor').content = c.couleur_primaire;
+  $('brandName').textContent = c.nom_entreprise; $('footerNom').textContent = c.nom_entreprise; $('contactNom').textContent = c.nom_entreprise;
+  $('heroTagline').textContent = c.tagline; $('heroDescription').textContent = c.description;
+  $('contactAdresse').textContent = c.adresse;
+  const tel = $('contactTel'); tel.textContent = c.telephone; tel.href = 'tel:' + String(c.telephone).replace(/[^\d+]/g, '');
+  const em = $('contactEmail'); em.textContent = c.email_contact; em.href = 'mailto:' + c.email_contact;
+  const logo = $('brandLogo');
+  if (c.logo_url) { logo.src = img(c.logo_url); logo.classList.remove('hidden'); } else logo.classList.add('hidden');
+
+  const hasCal = !!c.cal_link;
+  ['navRdv', 'heroRdv', 'qRdv', 'mbarRdv', 'rdv'].forEach((id) => show(id, hasCal));
+  show('heroContact', !hasCal); show('mbarContact', !hasCal);
+  setupCal(c.cal_link, c.nom_entreprise);
+
+  const arts = data.articles || [];
+  show('blog', arts.length > 0); show('navBlog', arts.length > 0);
+  renderBlog(arts);
+  renderPrestations();
+  simInit();
+  injectSchema(c);
+}
+
+function injectSchema(c) {
+  let s = $('ld'); if (!s) { s = document.createElement('script'); s.type = 'application/ld+json'; s.id = 'ld'; document.head.appendChild(s); }
+  s.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: c.nom_entreprise, description: c.description, telephone: c.telephone, email: c.email_contact, address: { '@type': 'PostalAddress', addressLocality: c.adresse }, url: location.href.split('#')[0] });
+}
+
+/* ══════════ Produits & prestations ══════════ */
+function renderPrestations() {
+  const grid = $('prestGrid'), sel = $('cPrestation');
+  sel.innerHTML = '<option value="">Question générale</option>';
+  grid.innerHTML = '';
+  const anyStripe = PRESTS.some((p) => p.stripe_url);
+  $('qShopT').textContent = anyStripe ? 'Commander en ligne' : 'Nos offres';
+  $('qShopS').textContent = anyStripe ? 'Paiement sécurisé par Stripe' : 'Découvrir ce que nous proposons';
+  PRESTS.forEach((p) => {
+    const card = document.createElement('article'); card.className = 'prest-card';
+    const media = p.image_url
+      ? `<img class="prest-img" src="${esc(img(p.image_url))}" alt="${esc(p.titre)}" width="600" height="400" loading="lazy" decoding="async"/>`
+      : `<div class="prest-ph" aria-hidden="true">${esc(p.titre.slice(0, 2).toUpperCase())}</div>`;
+    const btn = p.stripe_url
+      ? `<a class="btn btn-accent" href="${esc(p.stripe_url)}" target="_blank" rel="noopener noreferrer" data-buy="${esc(p.titre)}">${esc(p.bouton_label || 'Commander')}</a>`
+      : `<button class="btn btn-secondary" data-quote="${p.id}">Demander un devis</button>`;
+    card.innerHTML = `${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${media}<div class="prest-body"><h3>${esc(p.titre)}</h3><p>${esc(p.description)}</p><div class="prest-foot"><span class="prest-price">${esc(p.prix_affiche)}</span>${btn}</div></div>`;
+    grid.appendChild(card);
+    const o = document.createElement('option'); o.value = p.titre; o.textContent = p.titre; sel.appendChild(o);
+  });
+  if (!PRESTS.length) grid.innerHTML = '<p class="section-sub" style="grid-column:1/-1">Nos offres arrivent bientôt.</p>';
+}
+$('prestGrid').addEventListener('click', (e) => {
+  const buy = e.target.closest('[data-buy]'); if (buy) { track('buy_click', buy.dataset.buy); return; }
+  const q = e.target.closest('[data-quote]');
+  if (q) { simSelect(+q.dataset.quote); simGo(1, true); track('cta_click', 'produit-devis'); $('devis').scrollIntoView(); }
+});
+
+/* ══════════ Rendez-vous Cal.com (chargé seulement quand on arrive dessus) ══════════ */
+let calObs = null;
+function setupCal(link, nom) {
+  const frame = $('calFrame'); frame.innerHTML = '';
+  if (calObs) { calObs.disconnect(); calObs = null; }
+  if (!link) return;
+  const url = 'https://cal.com/' + link;
+  $('calFallback').innerHTML = `Le calendrier ne s'affiche pas ? <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Ouvrir la page de réservation</a>`;
+  calObs = new IntersectionObserver((en) => {
+    if (!en[0].isIntersecting) return;
+    calObs.disconnect(); calObs = null;
+    const f = document.createElement('iframe');
+    f.src = url + '?embed=true&theme=light&layout=month_view'; f.title = 'Prendre rendez-vous avec ' + nom; f.loading = 'lazy';
+    frame.appendChild(f); track('cal_view');
+  }, { rootMargin: '300px' });
+  calObs.observe(frame);
+}
+
+/* ══════════ Blog ══════════ */
+function renderBlog(list) {
+  const grid = $('blogGrid'); grid.innerHTML = '';
+  list.forEach((a) => {
+    const card = document.createElement('button'); card.className = 'blog-card'; card.type = 'button';
+    card.dataset.slug = a.slug;
+    card.innerHTML = (a.image_url ? `<img class="blog-img" src="${esc(img(a.image_url))}" alt="" width="480" height="270" loading="lazy" decoding="async"/>` : '')
+      + `<div class="blog-body"><div class="blog-date">${new Date(a.date_publication).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div><h3>${esc(a.titre)}</h3><p>${esc(a.extrait)}</p></div>`;
+    grid.appendChild(card);
+  });
+}
+$('blogGrid').addEventListener('click', async (e) => {
+  const c = e.target.closest('.blog-card'); if (!c) return;
+  const slug = c.dataset.slug;
+  try {
+    let a;
+    if (slug.startsWith('demo-')) a = DEMO.articles.find((x) => x.slug === slug);
+    else { const r = await fetch(API + '/api/articles/' + encodeURIComponent(slug)); a = (await r.json()).article; }
+    $('articleTitre').textContent = a.titre;
+    $('articleDate').textContent = new Date(a.date_publication).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    $('articleContenu').textContent = a.contenu;
+    const im = $('articleImg'); if (a.image_url) { im.src = img(a.image_url); im.classList.remove('hidden'); } else im.classList.add('hidden');
+    $('articleOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; $('articleClose').focus();
+  } catch (err) { toast("Impossible de charger l'article."); }
+});
+function closeArticle() { $('articleOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+$('articleClose').onclick = closeArticle;
+$('articleOverlay').addEventListener('click', (e) => { if (e.target === $('articleOverlay')) closeArticle(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeArticle(); });
+
+/* ══════════ Simulateur ══════════ */
+const S = { prest: null, qty: 5, opts: new Set(), step: 1, started: false, est: null };
+const simCard = $('simCard');
+
+function estimate() {
+  const sim = CFG.sim, p = S.prest;
+  const unit = p && p.prix_base > 0 ? Number(p.prix_base) : sim.unit_price;
+  const chosen = sim.options.filter((o) => S.opts.has(o.key));
+  const total = unit * S.qty + chosen.reduce((s, o) => s + o.price, 0);
+  const r5 = (x) => Math.round(x / 5) * 5;
+  const min = r5(Math.max(0, total * (1 + sim.range_low / 100)));
+  return { chosen, min, max: Math.max(min, r5(total * (1 + sim.range_high / 100))) };
+}
+
+function simInit() {
+  if (S.started && S.step > 1) return; // ne jamais casser une simulation en cours
+  const sim = CFG.sim;
+  S.qty = sim.qty_default; S.opts = new Set();
+  if (!S.prest || !PRESTS.find((p) => p.id === S.prest.id)) S.prest = PRESTS[0] || null;
+  else S.prest = PRESTS.find((p) => p.id === S.prest.id);
+  const masque = sim.mode === 'masque';
+  $('simIntro').textContent = masque ? 'Décrivez votre besoin en quelques clics : le professionnel étudie votre demande et vous répond avec un prix sur mesure.' : 'Choisissez votre besoin, ajustez les options : vous obtenez une estimation immédiate, sans engagement.';
+  $('simToResult').textContent = masque ? 'Continuer' : 'Voir mon estimation';
+  const r = $('simQty'); r.min = sim.qty_min; r.max = sim.qty_max; r.value = sim.qty_default;
+  $('qtyMin').textContent = sim.qty_min; $('qtyMax').textContent = sim.qty_max; $('simUnit').textContent = sim.unit_label; $('simQtyVal').textContent = sim.qty_default;
+  $('qtyTitle').textContent = 'Quelle quantité ?';
+  const ch = $('simChoices'); ch.innerHTML = '';
+  PRESTS.forEach((p) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'sim-choice'; b.setAttribute('role', 'radio'); b.dataset.id = p.id;
+    b.setAttribute('aria-checked', S.prest && S.prest.id === p.id ? 'true' : 'false');
+    b.innerHTML = `<span class="radio"></span><span>${esc(p.titre)}</span><small>${esc(p.prix_affiche)}</small>`;
+    ch.appendChild(b);
+  });
+  if (!PRESTS.length) ch.innerHTML = '<p class="sim-hint">Aucune prestation disponible pour le moment.</p>';
+  const ops = $('simOptions'); ops.innerHTML = '';
+  sim.options.forEach((o) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'sim-option'; b.setAttribute('role', 'checkbox'); b.setAttribute('aria-checked', 'false'); b.dataset.key = o.key;
+    b.innerHTML = `<span class="check"></span><span class="txt"><strong>${esc(o.label)}</strong>${o.desc ? `<span>${esc(o.desc)}</span>` : ''}</span>${masque ? '' : `<span class="sim-opt-price">${o.price >= 0 ? '+' : ''}${fmt(o.price)}€</span>`}`;
+    ops.appendChild(b);
+  });
+  if (!sim.options.length) ops.innerHTML = '<p class="sim-hint">Aucune option pour cette prestation.</p>';
+}
+function simSelect(id) {
+  const p = PRESTS.find((x) => x.id === id); if (!p) return;
+  S.prest = p;
+  document.querySelectorAll('.sim-choice').forEach((b) => b.setAttribute('aria-checked', +b.dataset.id === id ? 'true' : 'false'));
+}
+function keepInView() {
+  const t = simCard.getBoundingClientRect().top;
+  if (t < 70 || t > innerHeight * 0.55) window.scrollTo({ top: scrollY + t - 90, behavior: 'smooth' });
+}
+function simGo(step, silent) {
+  S.step = step;
+  if (step === 4) buildResult();
+  document.querySelectorAll('.sim-step').forEach((s) => s.classList.toggle('active', +s.dataset.step === step));
+  const shown = Math.min(step, 4);
+  $('simStepLabel').textContent = step === 5 ? 'Terminé' : `Étape ${shown} sur 4`;
+  $('simFill').style.width = (step === 5 ? 100 : shown / 4 * 100) + '%';
+  if (!silent) { keepInView(); const h = simCard.querySelector('.sim-step.active h3'); if (h) h.focus({ preventScroll: true }); }
+}
+function buildResult() {
+  const sim = CFG.sim, e = S.est = estimate();
+  const recap = `${esc(S.prest ? S.prest.titre : '—')} · ${S.qty} ${esc(sim.unit_label)}${e.chosen.length ? ' · ' + e.chosen.length + ' option' + (e.chosen.length > 1 ? 's' : '') : ''}`;
+  $('simResult').innerHTML = sim.mode === 'affiche'
+    ? `<small>Estimation indicative</small><div class="sim-result-price">${fmt(e.min)}€ – ${fmt(e.max)}€</div><div class="sim-recap">${recap}</div>`
+    : `<small>Votre demande</small><div class="sim-recap" style="font-size:.95rem;color:var(--ink);font-weight:600">${recap}</div><div class="sim-recap">Le professionnel vous répond avec un prix adapté.</div>`;
+}
+function markStart() { if (!S.started) { S.started = true; track('sim_start', S.prest ? S.prest.titre : ''); } }
+
+simCard.addEventListener('click', (e) => {
+  const go = e.target.closest('[data-go]'); if (go) { markStart(); simGo(+go.dataset.go); return; }
+  const ch = e.target.closest('.sim-choice'); if (ch) { markStart(); simSelect(+ch.dataset.id); return; }
+  const op = e.target.closest('.sim-option');
+  if (op) { markStart(); const k = op.dataset.key; S.opts.has(k) ? S.opts.delete(k) : S.opts.add(k); op.setAttribute('aria-checked', S.opts.has(k)); }
+});
+$('simQty').addEventListener('input', (e) => { markStart(); S.qty = +e.target.value; $('simQtyVal').textContent = S.qty; });
+
+$('simSend').addEventListener('click', async () => {
+  const msg = $('simFormMsg'), btn = $('simSend');
+  const nom = $('simNom').value.trim(), email = $('simEmail').value.trim();
+  msg.className = 'form-msg err';
+  if (!nom) { msg.textContent = 'Indiquez votre nom.'; $('simNom').focus(); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = 'Indiquez un email valide pour recevoir la réponse.'; $('simEmail').focus(); return; }
+  btn.disabled = true; btn.textContent = 'Envoi en cours…'; msg.textContent = '';
+  try {
+    const res = await fetch(API + '/api/devis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      nom, email, tel: $('simTel').value.trim(), message: $('simMsg').value.trim(), website: $('simWebsite').value,
+      prestation_id: S.prest ? S.prest.id : null, prestation: S.prest ? S.prest.titre : '', quantite: S.qty, options: [...S.opts] }) });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error || 'Erreur');
+    $('simDoneResult').innerHTML = data.estimate
+      ? `<small>Estimation indicative</small><div class="sim-result-price">${fmt(data.estimate.min)}€ – ${fmt(data.estimate.max)}€</div>`
+      : `<small>Demande enregistrée</small><div class="sim-recap" style="font-size:.95rem;color:var(--ink);font-weight:600">${esc(S.prest ? S.prest.titre : '')}</div>`;
+    $('simDoneText').textContent = `${CFG.nom_entreprise} a bien reçu votre demande et vous répond à ${email}.`;
+    simGo(5);
+  } catch (err) {
+    msg.textContent = err.message === 'Failed to fetch' ? 'Connexion impossible. Vérifiez votre réseau et réessayez.' : (err.message || "L'envoi a échoué, réessayez.");
+  } finally { btn.disabled = false; btn.textContent = 'Envoyer ma demande'; }
+});
+$('simReset').addEventListener('click', () => {
+  ['simNom', 'simTel', 'simEmail', 'simMsg'].forEach((id) => ($(id).value = ''));
+  S.started = false; simInit(); simGo(1);
+});
+
+/* ══════════ Contact : Formspree (confirmation au visiteur) + journal dans l'espace pro ══════════ */
+$('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = $('contactMsg'), btn = $('cSend');
+  const p = { nom: $('cNom').value.trim(), email: $('cEmail').value.trim(), tel: $('cTel').value.trim(), prestation: $('cPrestation').value, message: $('cMessage').value.trim(), website: $('cWebsite').value };
+  msg.className = 'form-msg err';
+  if (!p.nom || !p.message) { msg.textContent = 'Renseignez votre nom et votre message.'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(p.email)) { msg.textContent = 'Indiquez un email valide pour recevoir la réponse.'; return; }
+  btn.disabled = true; btn.textContent = 'Envoi en cours…'; msg.textContent = '';
+  const jobs = [];
+  if (CFG.formspree_id) jobs.push(fetch('https://formspree.io/f/' + CFG.formspree_id, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ name: p.nom, email: p.email, phone: p.tel, sujet: p.prestation || 'Question générale', message: p.message, _subject: 'Nouveau message — ' + CFG.nom_entreprise, _gotcha: p.website }) }).then((r) => r.ok));
+  jobs.push(fetch(API + '/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) }).then((r) => r.ok));
+  const results = await Promise.allSettled(jobs);
+  const ok = results.some((r) => r.status === 'fulfilled' && r.value === true);
+  if (ok) { msg.className = 'form-msg ok'; msg.textContent = CFG.formspree_id ? 'Message envoyé. Vous recevez une confirmation par email.' : 'Message envoyé. Nous revenons vers vous rapidement.'; $('contactForm').reset(); toast('Message envoyé ✓'); }
+  else msg.textContent = "L'envoi a échoué. Réessayez ou contactez-nous directement par téléphone.";
+  btn.disabled = false; btn.textContent = 'Envoyer le message';
+});
+
+loadSite();
+</script>
+</body>
+</html>
