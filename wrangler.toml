@@ -16,7 +16,7 @@ RESEND_FROM = "Devis <onboarding@resend.dev>"
 [[d1_databases]]
 binding = "DB"
 database_name = "moteur-client-demo-db"
-database_id = "COLLE_ICI_TON_DATABASE_ID"
+database_id = "f4d0872d-10bb-4376-9f1c-6580fc5a2076"
 
 # Stockage des images (upload depuis l'espace pro). Crée le bucket avec :
 #   wrangler r2 bucket create moteur-client-demo-images
