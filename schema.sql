@@ -1,9 +1,3 @@
--- Schéma D1 — Moteur générique ByEmreh (v2)
--- Une base = un client. Installation neuve :
---   wrangler d1 execute NOM_DB --remote --file=./schema.sql
--- Ce fichier ne supprime rien (IF NOT EXISTS) : tu peux le relancer sans perdre de données.
--- Si ta base existe déjà (v1), lance plutôt migration.sql.
-
 CREATE TABLE IF NOT EXISTS config (
   id INTEGER PRIMARY KEY CHECK (id = 1),
   nom_entreprise TEXT NOT NULL DEFAULT 'Votre Entreprise',
@@ -62,8 +56,6 @@ CREATE TABLE IF NOT EXISTS contacts (
   message TEXT NOT NULL DEFAULT '',
   statut TEXT NOT NULL DEFAULT 'nouveau'
 );
-
--- Devis issus du simulateur (le pro les reçoit par Resend ET les retrouve ici)
 CREATE TABLE IF NOT EXISTS devis (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   created_at TEXT NOT NULL,
@@ -83,8 +75,6 @@ CREATE TABLE IF NOT EXISTS devis (
   email_statut TEXT NOT NULL DEFAULT 'en_attente',
   email_detail TEXT NOT NULL DEFAULT ''
 );
-
--- Rendez-vous reçus depuis Cal.com (webhook, optionnel)
 CREATE TABLE IF NOT EXISTS rdv (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   uid TEXT NOT NULL UNIQUE,
@@ -96,8 +86,6 @@ CREATE TABLE IF NOT EXISTS rdv (
   email TEXT NOT NULL DEFAULT '',
   statut TEXT NOT NULL DEFAULT 'confirme'
 );
-
--- Suivi des visites et actions (sans cookie, sans donnée personnelle)
 CREATE TABLE IF NOT EXISTS events (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   created_at TEXT NOT NULL,
@@ -105,8 +93,6 @@ CREATE TABLE IF NOT EXISTS events (
   type TEXT NOT NULL,
   label TEXT NOT NULL DEFAULT ''
 );
-
--- Limitation de débit (anti-spam, anti force brute)
 CREATE TABLE IF NOT EXISTS rate_limits (
   k TEXT PRIMARY KEY,
   n INTEGER NOT NULL,
