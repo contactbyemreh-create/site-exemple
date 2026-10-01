@@ -163,6 +163,34 @@
   .toast.show{opacity:1;transform:translate(-50%,0);} .toast.err{background:var(--err);}
   .skel{height:110px;border-radius:16px;background:linear-gradient(90deg,#ECEEF1 25%,#F6F7F9 50%,#ECEEF1 75%);background-size:200% 100%;animation:sk 1.2s infinite;} @keyframes sk{to{background-position:-200% 0;}}
   @media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+
+  /* Fonctions (interrupteurs) */
+  .fcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1rem 1.15rem;margin-bottom:.8rem;transition:border-color .2s,box-shadow .2s;}
+  .fcard.on{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:0 8px 22px -16px var(--accent);}
+  .fhead{display:flex;gap:.9rem;align-items:center;}
+  .fico{font-size:1.45rem;width:46px;height:46px;border-radius:13px;background:var(--bg);display:grid;place-items:center;flex-shrink:0;}
+  .fcard.on .fico{background:color-mix(in srgb,var(--accent) 12%,#fff);}
+  .ft2{flex:1;min-width:0;} .ft2 b{display:block;font-family:var(--ff-d);font-size:1rem;} .ft2 span{color:var(--muted);font-size:.86rem;}
+  .sw{position:relative;display:inline-block;width:54px;height:30px;flex-shrink:0;cursor:pointer;}
+  .sw input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer;margin:0;z-index:2;}
+  .sw i{position:absolute;inset:0;background:#CBD0D8;border-radius:99px;transition:background .2s;}
+  .sw i::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;background:#fff;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.25);transition:transform .2s;}
+  .sw input:checked + i{background:var(--accent);} .sw input:checked + i::after{transform:translateX(24px);}
+  .sw input:focus-visible + i{outline:2.5px solid var(--accent);outline-offset:2px;}
+  .fbody{margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--line);}
+  .fbody .acts{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem;}
+  .hrow{display:grid;grid-template-columns:96px 54px 1fr;gap:.6rem;align-items:center;padding:.45rem 0;border-top:1px solid var(--line);} .hrow:first-child{border-top:0;}
+  .hrow .tm{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;} .hrow input[type=time]{padding:.4rem .5rem;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .hrow .tm small{color:var(--muted);}
+  @media(max-width:560px){.hrow{grid-template-columns:1fr auto;} .hrow .tm{grid-column:1/-1;}}
+  .coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;}
+  .ci{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem;} .ci.off{opacity:.6;}
+  .ci .stars{color:#F5A623;letter-spacing:.06em;} .ci p{color:var(--ink);white-space:pre-line;font-size:.9rem;} .ci .ft{display:flex;gap:.5rem;margin-top:auto;padding-top:.5rem;}
+  .ci img.th{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;background:var(--bg);}
+  .ci .two{display:grid;grid-template-columns:1fr 1fr;gap:4px;} .ci .two img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;}
+  .big-empty{text-align:center;padding:2.2rem 1rem;} .big-empty b{display:block;font-size:1.1rem;margin-bottom:.3rem;} .big-empty p{color:var(--muted);margin-bottom:1rem;}
+  .p-relance{background:var(--warn-bg);color:var(--warn);}
+  .upl{flex-wrap:wrap;} .upl > div{min-width:0;max-width:100%;} .upl input[type=file]{max-width:100%;}
 </style>
 </head>
 <body>
@@ -188,7 +216,12 @@
     <button class="nav-btn" data-view="messages"><svg class="i" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Messages<span class="n hidden" id="bMsg"></span></button>
     <button class="nav-btn" data-view="rdv"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Rendez-vous</button>
     <div class="side-sep"></div>
+    <button class="nav-btn" data-view="fonctions"><svg class="i" viewBox="0 0 24 24"><rect x="1" y="6" width="22" height="12" rx="6"/><circle cx="16" cy="12" r="3"/></svg>Fonctions du site</button>
     <button class="nav-btn" data-view="produits"><svg class="i" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Produits et prestations</button>
+    <button class="nav-btn" data-view="galerie"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>Réalisations</button>
+    <button class="nav-btn" data-view="avis"><svg class="i" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>Avis clients</button>
+    <button class="nav-btn" data-view="faq"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>Questions (FAQ)</button>
+    <button class="nav-btn" data-view="newsletter"><svg class="i" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>Newsletter</button>
     <button class="nav-btn" data-view="blog"><svg class="i" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Blog</button>
     <button class="nav-btn" data-view="simulateur"><svg class="i" viewBox="0 0 24 24"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Simulateur de devis</button>
     <button class="nav-btn" data-view="reglages"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>Réglages</button>
@@ -225,7 +258,7 @@ const pill = (st, map) => `<span class="pill p-${esc(st)}">${esc((map || {})[st]
 const CHECK = '<svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
 
 let TOKEN = sessionStorage.getItem('adm_t') || '';
-let CONFIG = null, OV = null, DAYS = 30, DEVIS = null, CONTACTS = null, PRODS = null, ARTS = null, RDV = null;
+let LIST = {}, CONFIG = null, OV = null, DAYS = 30, DEVIS = null, CONTACTS = null, PRODS = null, ARTS = null, RDV = null;
 const F = { devis: 'all', dq: '', ct: 'all', cq: '' };
 let PENDING_DEVIS = null;
 
@@ -269,7 +302,7 @@ $('loginForm').addEventListener('submit', async (e) => {
   btn.disabled = false;
 });
 function logout(silent) {
-  TOKEN = ''; sessionStorage.removeItem('adm_t'); DEVIS = CONTACTS = PRODS = ARTS = RDV = OV = null;
+  TOKEN = ''; sessionStorage.removeItem('adm_t'); DEVIS = CONTACTS = PRODS = ARTS = RDV = OV = null; LIST = {};
   $('app').classList.add('hidden'); $('login').classList.remove('hidden'); $('modalRoot').innerHTML = '';
   if (!silent) toast('Déconnecté');
 }
@@ -284,7 +317,13 @@ async function boot() {
   api('/api/admin/overview?days=30').then((o) => { OV = OV || o; badges(o.a_traiter.nb_devis, o.a_traiter.nb_contacts); }).catch(() => {});
   route();
 }
+const VIEW_FEAT = { newsletter: 'newsletter', produits: 'produits', simulateur: 'simulateur', rdv: 'rdv', blog: 'blog', avis: 'avis', galerie: 'galerie', faq: 'faq' };
+function applyNav() {
+  const F = (CONFIG && CONFIG.features) || {};
+  document.querySelectorAll('.nav-btn[data-view]').forEach((b) => { const k = VIEW_FEAT[b.dataset.view]; if (k) b.classList.toggle('hidden', F[k] === false || (F[k] === undefined && ['avis', 'galerie', 'faq', 'newsletter'].includes(k))); });
+}
 function applyBrand() {
+  applyNav();
   setAccent(CONFIG.couleur_primaire);
   document.title = 'Espace pro — ' + CONFIG.nom_entreprise;
   $('sideName').textContent = CONFIG.nom_entreprise;
@@ -299,12 +338,12 @@ function refreshBadges() {
 }
 
 /* ══════════ Navigation ══════════ */
-const TITLES = { dashboard: 'Tableau de bord', devis: 'Devis', messages: 'Messages', rdv: 'Rendez-vous', produits: 'Produits et prestations', blog: 'Blog', simulateur: 'Simulateur de devis', reglages: 'Réglages' };
+const TITLES = { newsletter: 'Newsletter', fonctions: 'Fonctions du site', galerie: 'Réalisations', avis: 'Avis clients', faq: 'Questions fréquentes', dashboard: 'Tableau de bord', devis: 'Devis', messages: 'Messages', rdv: 'Rendez-vous', produits: 'Produits et prestations', blog: 'Blog', simulateur: 'Simulateur de devis', reglages: 'Réglages' };
 function route() {
   if (!TOKEN) return;
   let v = location.hash.replace(/^#\/?/, '') || 'dashboard'; if (!VIEWS[v]) v = 'dashboard';
   document.querySelectorAll('.nav-btn[data-view]').forEach((b) => b.classList.toggle('active', b.dataset.view === v));
-  $('pageTitle').textContent = TITLES[v]; $('topActions').innerHTML = ''; $('view').oninput = null;
+  $('pageTitle').textContent = TITLES[v]; $('topActions').innerHTML = ''; $('view').oninput = null; $('view').onchange = null; $('view').onclick = null;
   document.body.classList.remove('drawer'); window.scrollTo(0, 0);
   $('view').innerHTML = '<div class="grid g-kpi"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>';
   VIEWS[v]().catch((e) => { $('view').innerHTML = `<div class="alert err">${esc(e.message)}</div>`; });
@@ -377,8 +416,13 @@ VIEWS.dashboard = async () => {
     { ok: s.cal, t: 'Prise de rendez-vous', d: 'Lien Cal.com dans les réglages', v: 'reglages' },
     { ok: s.stripe_produits > 0, t: 'Un produit avec lien Stripe', d: 'Bouton « Commander » sur le site', v: 'produits' },
   ];
+  const FT = o.features || {};
+  if (FT.avis) steps.push({ ok: o.contenu.a > 0, t: 'Un premier avis client', d: 'Rassure les visiteurs', v: 'avis' });
+  if (FT.galerie) steps.push({ ok: o.contenu.g > 0, t: 'Une première photo de réalisation', d: 'Montrez votre travail', v: 'galerie' });
+  if (FT.faq) steps.push({ ok: o.contenu.f > 0, t: 'Une première question fréquente', d: 'Répond avant même qu\'on vous appelle', v: 'faq' });
   const done = steps.filter((x) => x.ok).length;
   const kp = [['Visites', 'visites'], ['Devis reçus', 'devis'], ['Messages', 'messages'], ['Clics « Commander »', 'achats'], ['Rendez-vous', 'rdv']];
+  if (FT.whatsapp) kp.push(['Clics WhatsApp', 'wa']);
   const conv = o.cur.visites ? Math.round(((o.cur.devis + o.cur.messages + o.cur.rdv) / o.cur.visites) * 1000) / 10 : 0;
   const simS = Math.max(o.cur.sim_start, o.cur.devis);
   const pct = (a, b) => (b ? Math.min(100, Math.round((a / b) * 100)) : 0);
@@ -386,6 +430,8 @@ VIEWS.dashboard = async () => {
   if (o.setup.emails_en_echec > 0) alerts.push(`<div class="alert err"><div><b>${o.setup.emails_en_echec} ${o.setup.emails_en_echec > 1 ? "devis n'ont pas pu être envoyés" : "devis n'a pas pu être envoyé"} par email</b> (ils sont bien enregistrés dans l'onglet Devis). Testez l'envoi pour voir la cause.</div><button class="btn sm" data-go="reglages">Tester l'envoi</button></div>`);
   if (s.resend_key && s.resend_from_test) alerts.push(`<div class="alert info"><div>Expéditeur de test actif : Resend n'envoie qu'à l'email de <b>votre compte Resend</b>. Pour écrire à n'importe quelle adresse, vérifiez un domaine dans Resend puis changez <code>RESEND_FROM</code>.</div></div>`);
 
+  const rl = o.a_relancer || { n: 0, liste: [], jours: 3 };
+  if (FT.relance && rl.n > 0) alerts.push(`<div class="card" style="margin-bottom:1rem;border-color:#F3D9A4;background:var(--warn-bg)"><div class="card-head"><h3>⏰ ${rl.n} devis sans réponse depuis plus de ${rl.jours} jour${rl.jours > 1 ? 's' : ''}</h3></div>${rl.liste.map((d) => `<div class="li"><span class="t"><b>${esc(d.nom)}</b><span>${esc(d.prestation)} · reçu le ${fd(d.created_at)}</span></span><button class="btn sm primary" data-relance="${d.id}" data-mail="${esc(d.email)}" data-nom="${esc(d.nom)}" data-prest="${esc(d.prestation)}" data-date="${esc(d.created_at)}">Relancer</button></div>`).join('')}</div>`);
   $('topActions').innerHTML = `<div class="seg" id="seg">${[7, 30, 90].map((d) => `<button data-d="${d}" class="${d === DAYS ? 'on' : ''}">${d} j</button>`).join('')}</div>`;
   $('seg').onclick = (e) => { const b = e.target.closest('button'); if (b) { DAYS = +b.dataset.d; route(); } };
 
@@ -421,11 +467,22 @@ VIEWS.dashboard = async () => {
 document.addEventListener('click', (e) => {
   const g = e.target.closest('[data-go]'); if (g) go(g.dataset.go);
   const od = e.target.closest('[data-open-devis]'); if (od) { PENDING_DEVIS = +od.dataset.openDevis; go('devis'); }
+  const rb = e.target.closest('[data-relance]'); if (rb) relancer(rb.dataset);
 });
+
+/* ── Relance d'un devis : ouvre l'email déjà rédigé, puis note la relance ── */
+async function relancer(d) {
+  const nom = d.nom || '', date = d.date ? new Date(d.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) : '';
+  const body = `Bonjour ${nom},\n\nJe me permets de revenir vers vous au sujet de votre demande de devis${d.prest ? ' (' + d.prest + ')' : ''}${date ? ' du ' + date : ''}.\nSouhaitez-vous que nous en parlions ? Je reste à votre disposition.\n\nBien cordialement,\n${CONFIG.nom_entreprise}${CONFIG.telephone ? '\n' + CONFIG.telephone : ''}`;
+  window.location.href = 'mailto:' + d.mail + '?subject=' + encodeURIComponent('Votre demande de devis — ' + CONFIG.nom_entreprise) + '&body=' + encodeURIComponent(body);
+  try { await api('/api/admin/devis/' + d.relance, 'PUT', { relance: true }); toast('Relance notée — le rappel disparaît de la liste'); if (DEVIS) { const x = DEVIS.find((y) => y.id === +d.relance); if (x) x.relance_le = new Date().toISOString(); } setTimeout(() => route(), 600); } catch (e) { toast(e.message, true); }
+}
+const aRelancer = (d) => { const j = ((CONFIG.extras || {}).relance_jours) || 3; return (CONFIG.features || {}).relance !== false && ['nouveau', 'en_cours'].includes(d.statut) && !d.relance_le && Date.now() - new Date(d.created_at).getTime() > j * 86400000; };
 
 /* ── Devis ── */
 const estTxt = (d) => (d.mode === 'affiche' ? `${fmt(d.estimation_min)}–${fmt(d.estimation_max)} €` : 'À chiffrer');
-const emailBadge = (d) => (d.email_statut === 'envoye' ? '' : d.email_statut === 'echec' ? '<span class="pill p-echec" title="Email non envoyé">Email non envoyé</span>' : '<span class="pill p-ghost">Email non configuré</span>');
+const relBadge = (d) => (aRelancer(d) ? ' <span class="pill p-relance">À relancer</span>' : '');
+const emailBadge = (d) => relBadge(d) + (d.email_statut === 'envoye' ? '' : d.email_statut === 'echec' ? '<span class="pill p-echec" title="Email non envoyé">Email non envoyé</span>' : '<span class="pill p-ghost">Email non configuré</span>');
 VIEWS.devis = async () => {
   DEVIS = (await api('/api/admin/devis')).devis; refreshBadges();
   $('topActions').innerHTML = '<button class="btn sm" id="exp">Exporter (CSV)</button>';
@@ -462,10 +519,16 @@ function devisDetail(id) {
       <dt>Estimation</dt><dd>${d.mode === 'affiche' ? estTxt(d) + ' <span class="muted small">(affichée au client)</span>' : 'Prix masqué au client : à chiffrer'}</dd>
       <dt>Message</dt><dd style="font-weight:500;white-space:pre-wrap">${esc(d.message) || '—'}</dd>
       <dt>Notification</dt><dd>${em}</dd>
+      ${d.client_email_statut ? `<dt>Confirmation client</dt><dd>${d.client_email_statut === 'envoye' ? '<span class="pill p-envoye">Email envoyé au client</span>' : `<span class="pill p-echec">Non envoyé au client</span><div class="small muted" style="margin-top:.3rem">${esc(d.client_email_detail)}</div>`}</dd>` : ''}
+      ${d.remise_pct > 0 ? `<dt>Code promo</dt><dd>${esc(d.remise_code)} (−${d.remise_pct} %)</dd>` : ''}
+      ${d.lang && d.lang !== 'fr' ? `<dt>Langue du client</dt><dd>${esc({ en: 'English', es: 'Español', ar: 'العربية' }[d.lang] || d.lang)}</dd>` : ''}
+      <dt>Relance</dt><dd>${d.relance_le ? 'Relancé le ' + fdt(d.relance_le) : aRelancer(d) ? '<span class="pill p-relance">À relancer</span>' : '—'}</dd>
     </dl>
     <div class="row2"><div class="field"><label for="dSt">Statut</label><select id="dSt">${Object.entries(ST_DEVIS).map(([k, l]) => `<option value="${k}" ${d.statut === k ? 'selected' : ''}>${l}</option>`).join('')}</select></div></div>
     <div class="field"><label for="dNote">Note interne (invisible pour le client)</label><textarea id="dNote" placeholder="Prix proposé, rappel à faire…">${esc(d.note)}</textarea></div>`,
-    `<button class="btn danger spacer" id="dDel">Supprimer</button><a class="btn" href="mailto:${esc(d.email)}?subject=${encodeURIComponent('Votre demande de devis')}">Répondre</a>${d.tel ? `<a class="btn" href="tel:${esc(d.tel)}">Appeler</a>` : ''}<button class="btn primary" id="dSave">Enregistrer</button>`);
+    `<button class="btn danger spacer" id="dDel">Supprimer</button><a class="btn" href="mailto:${esc(d.email)}?subject=${encodeURIComponent('Votre demande de devis')}">Répondre</a><button class="btn" id="dPdf">PDF</button><button class="btn" id="dRel">Relancer</button>${d.tel ? `<a class="btn" href="tel:${esc(d.tel)}">Appeler</a>` : ''}<button class="btn primary" id="dSave">Enregistrer</button>`);
+  $('dPdf').onclick = (e) => openPdf(d.id, e.currentTarget);
+  $('dRel').onclick = () => { closeModal(); relancer({ relance: d.id, mail: d.email, nom: d.nom, prest: d.prestation, date: d.created_at }); };
   $('dSave').onclick = async () => {
     try { await api('/api/admin/devis/' + id, 'PUT', { statut: $('dSt').value, note: $('dNote').value }); d.statut = $('dSt').value; d.note = $('dNote').value; closeModal(); toast('Devis mis à jour'); refreshBadges(); if ($('dlist')) drawDevis(); } catch (e) { toast(e.message, true); }
   };
@@ -658,8 +721,10 @@ VIEWS.reglages = async () => {
       <div class="field"><label for="rF">Identifiant ou adresse du formulaire</label><input id="rF" value="${esc(c.formspree_id)}" placeholder="xyzabcde ou https://formspree.io/f/xyzabcde" /><div class="hint">Formspree vous prévient à chaque message. L'email de confirmation envoyé au visiteur se règle dans Formspree (Settings du formulaire) — selon votre formule, cette option peut être payante.</div></div></div>
     <div class="card"><h3>Prise de rendez-vous (Cal.com)</h3>
       <div class="field"><label for="rCal">Lien Cal.com</label><input id="rCal" value="${esc(c.cal_link)}" placeholder="votre-pseudo/sitetest" /><div class="hint">Collez « votre-pseudo/sitetest » ou l'adresse complète. Si vous n'indiquez que votre pseudo, l'événement <b>sitetest</b> est utilisé. Laissez vide pour masquer la section sur le site.</div></div></div>
+    <div class="card" style="margin-top:1rem"><h3>Sauvegarde de mes données</h3><p class="muted" style="margin-bottom:.8rem">Téléchargez en un clic une copie de tout : devis, messages, produits, abonnés, réglages. Conservez-la en lieu sûr.</p><button class="btn" id="expAll">Télécharger ma sauvegarde</button></div>
     <p class="muted small" style="margin-top:1rem">Le code d'accès à cet espace se change côté Worker avec <code>wrangler secret put ADMIN_PASSWORD</code>.</p>`;
   bindUpload('lgFile', 'lgUrl', 'lgPrev');
+  $('expAll').onclick = (e) => exportAll(e.currentTarget);
   $('cfgSave').onclick = async () => {
     try {
       const d = await saveConfig({ nom_entreprise: $('rN').value, couleur_primaire: $('rC').value, tagline: $('rT').value, description: $('rD').value, email_contact: $('rE').value, telephone: $('rTel').value, adresse: $('rA').value, pro_email: $('rP').value, formspree_id: $('rF').value, cal_link: $('rCal').value, logo_url: $('lgUrl').value });
@@ -675,6 +740,253 @@ VIEWS.reglages = async () => {
     b.disabled = false;
   };
 };
+
+/* ══════════ Fonctions du site : des interrupteurs, rien d'autre ══════════ */
+const FEATS = [
+  { k: 'produits', ico: '🛍️', t: 'Produits & boutique', d: 'Présentez vos produits avec un bouton de paiement Stripe (ou « Demander un devis »).', go: 'produits', gl: 'Gérer mes produits' },
+  { k: 'simulateur', ico: '🧮', t: 'Devis en ligne', d: 'Vos visiteurs obtiennent une estimation en 1 minute, et vous recevez la demande par email.', go: 'simulateur', gl: 'Régler mes prix' },
+  { k: 'rdv', ico: '📅', t: 'Prise de rendez-vous', d: 'Un calendrier sur votre site : vos clients réservent tout seuls.', go: 'reglages', gl: 'Mettre mon lien Cal.com', warn: (c) => (c.cal_link ? '' : 'Il manque votre lien Cal.com (dans Réglages) : tant qu\'il est vide, rien ne s\'affiche.') },
+  { k: 'pdf', ico: '📄', t: 'Devis en PDF', d: 'Le client télécharge son estimation en PDF (et la reçoit en pièce jointe). Vous pouvez aussi l\'ouvrir depuis chaque devis.', fields: 'pdf' },
+  { k: 'whatsapp', ico: '💬', t: 'Bouton WhatsApp', d: 'Un bouton vert sur le site : le client vous écrit en un clic.', fields: 'wa' },
+  { k: 'avis', ico: '⭐', t: 'Avis clients', d: 'Affichez vos meilleurs avis avec les étoiles. Ça rassure avant de vous contacter.', go: 'avis', gl: 'Gérer mes avis' },
+  { k: 'galerie', ico: '🖼️', t: 'Réalisations (photos)', d: 'Une galerie de vos travaux, avec option « avant / après ».', go: 'galerie', gl: 'Gérer mes photos' },
+  { k: 'apropos', ico: '🏢', t: 'À propos + chiffres clés', d: 'Présentez-vous avec une photo, un texte et jusqu\'à 3 chiffres qui rassurent (« 10 ans d\'expérience »).', fields: 'apropos' },
+  { k: 'newsletter', ico: '📬', t: 'Newsletter (collecte d\'emails)', d: 'Un formulaire d\'inscription sur le site, et vous envoyez vos nouveautés à vos abonnés.', go: 'newsletter', gl: 'Gérer mes abonnés', fields: 'newsletter' },
+  { k: 'reseaux', ico: '📱', t: 'Réseaux sociaux + avis Google', d: 'Des boutons vers vos pages, et un bouton « Laisser un avis Google ».', fields: 'reseaux' },
+  { k: 'langues', ico: '🌍', t: 'Site en plusieurs langues', d: 'Anglais, espagnol, arabe : le visiteur change de langue en un clic.', fields: 'langues' },
+  { k: 'legal', ico: '⚖️', t: 'Mentions légales + confidentialité', d: 'Les pages obligatoires, générées pour vous à partir de vos informations.', fields: 'legal' },
+  { k: 'faq', ico: '❓', t: 'Questions fréquentes', d: 'Répondez d\'avance aux questions qu\'on vous pose tout le temps.', go: 'faq', gl: 'Gérer mes questions' },
+  { k: 'horaires', ico: '🕒', t: 'Horaires & carte', d: 'Vos horaires, le badge « Ouvert maintenant » et une carte pour venir.', fields: 'hours' },
+  { k: 'promo', ico: '🏷️', t: 'Bandeau promo', d: 'Une bande de couleur en haut du site pour annoncer une offre, avec un code à copier.', fields: 'promo' },
+  { k: 'blog', ico: '📰', t: 'Blog / actualités', d: 'Publiez des articles : c\'est utile pour être trouvé sur Google.', go: 'blog', gl: 'Écrire un article' },
+  { k: 'seo', ico: '🔎', t: 'Être bien trouvé sur Google', d: 'Titre, description et ville pour le référencement local.', fields: 'seo' },
+  { k: 'confirmation_client', ico: '✉️', t: 'Email de confirmation au client', d: 'Après un devis, le client reçoit un email « bien reçu » avec son récapitulatif.', fields: 'confirm' },
+  { k: 'relance', ico: '⏰', t: 'Rappel des devis à relancer', d: 'Le tableau de bord vous rappelle les devis restés sans réponse.', fields: 'relance' },
+];
+const DAYS_FR = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+const fld = (id, label, val, ph, hint, type) => `<div class="field"><label for="${id}">${label}</label><input id="${id}" type="${type || 'text'}" value="${esc(val)}" placeholder="${esc(ph || '')}" />${hint ? `<div class="hint">${hint}</div>` : ''}</div>`;
+const FIELDS = {
+  wa: (c, X) => fld('x_wa_numero', 'Numéro WhatsApp', X.wa_numero, c.telephone || '06 12 34 56 78', 'Laissez vide pour utiliser le téléphone affiché sur votre site.')
+    + fld('x_wa_message', 'Message déjà écrit pour le client', X.wa_message, 'Bonjour, je vous contacte depuis votre site.'),
+  hours: (c, X) => `<div>${X.horaires.map((h, i) => `<div class="hrow"><b>${DAYS_FR[i]}</b><label class="sw"><input type="checkbox" id="h_o${i}" ${h.o ? 'checked' : ''} aria-label="${DAYS_FR[i]} ouvert" /><i></i></label><div class="tm"><small>de</small><input type="time" id="h_d${i}" value="${h.d}" /><small>à</small><input type="time" id="h_f${i}" value="${h.f}" /><small>puis</small><input type="time" id="h_d2${i}" value="${h.d2}" /><small>à</small><input type="time" id="h_f2${i}" value="${h.f2}" /></div></div>`).join('')}</div>
+    <div class="hint" style="margin:.4rem 0 .9rem;color:var(--muted);font-size:.78rem">Interrupteur éteint = fermé ce jour-là. La 2e plage (« puis… ») sert pour la pause de midi : laissez-la vide sinon.</div>`
+    + fld('x_horaires_note', 'Petite note (facultatif)', X.horaires_note, 'Fermé les jours fériés')
+    + `<label class="check" style="margin-bottom:.6rem"><input type="checkbox" id="x_carte" ${X.carte ? 'checked' : ''} /> Afficher la carte (d'après l'adresse : ${esc(c.adresse || 'à renseigner dans Réglages')})</label>`,
+  promo: (c, X) => fld('x_promo_texte', 'Texte du bandeau', X.promo_texte, '-10 % sur votre première commande')
+    + `<div class="row2">${fld('x_promo_code', 'Code promo (facultatif)', X.promo_code, 'BIENVENUE10')}${fld('x_promo_fin', 'Dernier jour de l\'offre (facultatif)', X.promo_fin, '', 'Le bandeau disparaît tout seul après cette date.', 'date')}</div>`,
+  seo: (c, X) => fld('x_seo_titre', 'Titre sur Google', X.seo_titre, `${c.nom_entreprise} — plombier à Marseille`, 'Environ 60 caractères. Mettez votre métier et votre ville.')
+    + `<div class="field"><label for="x_seo_description">Description sur Google</label><textarea id="x_seo_description" maxlength="160" style="min-height:70px" placeholder="En une ou deux phrases : ce que vous faites et où.">${esc(X.seo_description)}</textarea></div>`
+    + fld('x_seo_ville', 'Ville ou zone desservie', X.seo_ville, 'Marseille et alentours'),
+  confirm: (c, X) => `<div class="field"><label for="x_confirm_message">Votre message au client</label><textarea id="x_confirm_message" maxlength="500" style="min-height:80px" placeholder="Nous avons bien reçu votre demande et nous revenons vers vous très rapidement.">${esc(X.confirm_message)}</textarea><div class="hint">Laissez vide pour le message par défaut. Pour écrire à n'importe quel client, le domaine d'envoi doit être vérifié dans Resend (sinon l'email au client peut être refusé ; votre devis, lui, est toujours enregistré).</div></div>`,
+  relance: (c, X) => fld('x_relance_jours', 'Me rappeler après combien de jours ?', X.relance_jours, '3', '', 'number'),
+};
+const READ = {
+  wa: () => ({ wa_numero: $('x_wa_numero').value, wa_message: $('x_wa_message').value }),
+  hours: () => ({ horaires: DAYS_FR.map((_, i) => ({ o: $('h_o' + i).checked ? 1 : 0, d: $('h_d' + i).value, f: $('h_f' + i).value, d2: $('h_d2' + i).value, f2: $('h_f2' + i).value })), horaires_note: $('x_horaires_note').value, carte: $('x_carte').checked ? 1 : 0 }),
+  promo: () => ({ promo_texte: $('x_promo_texte').value, promo_code: $('x_promo_code').value, promo_fin: $('x_promo_fin').value }),
+  seo: () => ({ seo_titre: $('x_seo_titre').value, seo_description: $('x_seo_description').value, seo_ville: $('x_seo_ville').value }),
+  confirm: () => ({ confirm_message: $('x_confirm_message').value }),
+  relance: () => ({ relance_jours: $('x_relance_jours').value }),
+};
+
+const LNAMES = { en: 'English', es: 'Español', ar: 'العربية' };
+Object.assign(FIELDS, {
+  pdf: (c, X) => `<div class="row2">${fld('x_devis_validite', 'Validité du devis (jours)', X.devis_validite, '30', '', 'number')}${fld('x_devis_mention', 'Mention TVA (facultatif)', X.devis_mention, 'TVA non applicable, art. 293 B du CGI')}</div>`
+    + `<div class="field"><label for="x_devis_conditions">Conditions de paiement (facultatif)</label><textarea id="x_devis_conditions" maxlength="400" style="min-height:70px" placeholder="Acompte de 30 % à la commande, solde à la livraison.">${esc(X.devis_conditions)}</textarea><div class="hint">Le SIRET et l'adresse affichés sur le PDF viennent du bloc « Mentions légales » plus bas.</div></div>`,
+  apropos: (c, X) => fld('x_apropos_titre', 'Titre', X.apropos_titre, 'Notre histoire')
+    + `<div class="field"><label for="x_apropos_texte">Votre texte</label><textarea id="x_apropos_texte" maxlength="1500" style="min-height:110px" placeholder="Qui êtes-vous ? Depuis quand ? Qu'est-ce qui vous rend différent ?">${esc(X.apropos_texte)}</textarea></div>`
+    + `<div class="field"><label>Photo (facultatif)</label>${uploadBlock('ap', X.apropos_image)}<button class="btn sm" type="button" id="apClear">Retirer la photo</button></div>`
+    + `<div class="hint" style="margin:.2rem 0 .5rem;font-size:.78rem;color:var(--muted)">Chiffres clés (facultatif, 3 maximum)</div>`
+    + [0, 1, 2].map((i) => { const ch = (X.chiffres || [])[i] || { n: '', l: '' }; return `<div class="row2">${fld('x_ch_n' + i, 'Chiffre ' + (i + 1), ch.n, ['10', '500+', '98 %'][i])}${fld('x_ch_l' + i, 'Ce que ça veut dire', ch.l, ["ans d'expérience", 'clients satisfaits', 'de recommandation'][i])}</div>`; }).join(''),
+  newsletter: (c, X) => fld('x_newsletter_titre', 'Titre au-dessus du formulaire', X.newsletter_titre, 'Restez informé') + fld('x_newsletter_texte', 'Petit texte', X.newsletter_texte, 'Recevez nos actualités et nos offres.'),
+  reseaux: (c, X) => { const r = X.reseaux || {}; return `<div class="hint" style="margin-bottom:.6rem;font-size:.78rem;color:var(--muted)">Collez l'adresse complète de la page (elle commence par https://). Laissez vide ce que vous n'avez pas.</div>`
+    + fld('x_r_instagram', 'Instagram', r.instagram, 'https://instagram.com/votre-compte') + fld('x_r_facebook', 'Facebook', r.facebook, 'https://facebook.com/votre-page')
+    + fld('x_r_tiktok', 'TikTok', r.tiktok, 'https://tiktok.com/@votre-compte') + fld('x_r_youtube', 'YouTube', r.youtube, 'https://youtube.com/@votre-chaine') + fld('x_r_linkedin', 'LinkedIn', r.linkedin, 'https://linkedin.com/company/votre-entreprise')
+    + fld('x_r_google_avis', 'Lien pour laisser un avis Google', r.google_avis, 'https://g.page/r/…/review', 'Dans Google Business Profile : « Demander des avis » → copiez le lien.'); },
+  legal: (c, X) => { const L = X.legal || {}; return `<div class="alert info" style="margin-bottom:.8rem"><div>Ces pages sont générées automatiquement à partir de ces informations. <b>Relisez-les</b> : elles ne remplacent pas un conseil juridique.</div></div>`
+    + `<div class="row2">${fld('x_l_raison', 'Nom légal (raison sociale)', L.raison, c.nom_entreprise)}${fld('x_l_forme', 'Forme juridique', L.forme, 'Entreprise individuelle, SARL…')}</div>`
+    + `<div class="row2">${fld('x_l_siret', 'SIRET', L.siret, '123 456 789 00012')}${fld('x_l_directeur', 'Directeur de la publication', L.directeur, 'Votre nom')}</div>`
+    + fld('x_l_adresse', 'Adresse du siège', L.adresse, c.adresse) + fld('x_l_email', 'Email de contact légal', L.email, c.email_contact) + fld('x_l_tva', 'Mention TVA (facultatif)', L.tva, 'TVA non applicable, art. 293 B du CGI'); },
+  langues: (c, X) => `<div class="field"><label>Langues proposées en plus du français</label><div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.3rem">${['en', 'es', 'ar'].map((l) => `<label class="check"><input type="checkbox" id="lg_${l}" ${(X.langues || []).includes(l) ? 'checked' : ''} /> ${LNAMES[l]}</label>`).join('')}</div></div>`
+    + `<div class="alert info" style="margin:.6rem 0"><div>Les boutons, formulaires et messages du site sont <b>traduits automatiquement</b>. Vos propres textes (produits, FAQ, avis, articles) restent dans la langue où vous les écrivez. Pour le slogan, la description et le bandeau promo, vous pouvez ajouter une version par langue ci-dessous.</div></div>`
+    + ['en', 'es', 'ar'].map((l) => { const o = (X.i18n || {})[l] || {}; return `<details style="margin-bottom:.5rem"><summary style="cursor:pointer;font-weight:600;padding:.4rem 0">Mes textes en ${LNAMES[l]} (facultatif)</summary>${fld('i_' + l + '_tagline', 'Slogan', o.tagline)}<div class="field"><label for="i_${l}_description">Description</label><textarea id="i_${l}_description" maxlength="600" style="min-height:70px" ${l === 'ar' ? 'dir="rtl"' : ''}>${esc(o.description || '')}</textarea></div>${fld('i_' + l + '_promo', 'Texte du bandeau promo', o.promo_texte)}</details>`; }).join(''),
+});
+const _hours = FIELDS.hours, _promo = FIELDS.promo;
+FIELDS.hours = (c, X) => _hours(c, X) + `<div class="field" style="margin-top:.4rem"><div class="hint" style="font-weight:600;color:var(--ink);margin-bottom:.4rem">Fermeture exceptionnelle (congés, travaux…)</div>${fld('x_fermeture_texte', 'Message affiché', X.fermeture_texte, 'Fermé du 10 au 20 août pour congés')}<div class="row2">${fld('x_fermeture_du', 'Du', X.fermeture_du, '', '', 'date')}${fld('x_fermeture_au', 'Au (inclus)', X.fermeture_au, '', '', 'date')}</div><div class="hint">Le bandeau rouge apparaît seulement entre ces deux dates, puis disparaît tout seul.</div></div>`;
+FIELDS.promo = (c, X) => _promo(c, X) + fld('x_promo_remise', 'Remise appliquée au devis (en %)', X.promo_remise || '', '0', 'Si vous mettez 10, le code fait vraiment baisser l\'estimation de 10 %. Laissez vide pour juste afficher le code.', 'number');
+const _rh = READ.hours, _rp = READ.promo;
+READ.hours = () => ({ ..._rh(), fermeture_texte: $('x_fermeture_texte').value, fermeture_du: $('x_fermeture_du').value, fermeture_au: $('x_fermeture_au').value });
+READ.promo = () => ({ ..._rp(), promo_remise: +$('x_promo_remise').value || 0 });
+Object.assign(READ, {
+  pdf: () => ({ devis_validite: +$('x_devis_validite').value || 30, devis_mention: $('x_devis_mention').value, devis_conditions: $('x_devis_conditions').value }),
+  apropos: () => ({ apropos_titre: $('x_apropos_titre').value, apropos_texte: $('x_apropos_texte').value, apropos_image: $('apUrl').value, chiffres: [0, 1, 2].map((i) => ({ n: $('x_ch_n' + i).value, l: $('x_ch_l' + i).value })) }),
+  newsletter: () => ({ newsletter_titre: $('x_newsletter_titre').value, newsletter_texte: $('x_newsletter_texte').value }),
+  reseaux: () => ({ reseaux: Object.fromEntries(['instagram', 'facebook', 'tiktok', 'youtube', 'linkedin', 'google_avis'].map((k) => [k, $('x_r_' + k).value.trim()])) }),
+  legal: () => ({ legal: Object.fromEntries(['raison', 'forme', 'siret', 'directeur', 'adresse', 'email', 'tva'].map((k) => [k, $('x_l_' + k).value])) }),
+  langues: () => ({ langues: ['en', 'es', 'ar'].filter((l) => $('lg_' + l).checked), i18n: Object.fromEntries(['en', 'es', 'ar'].map((l) => [l, { tagline: $('i_' + l + '_tagline').value, description: $('i_' + l + '_description').value, promo_texte: $('i_' + l + '_promo').value }])) }),
+});
+function afterFeat() {
+  if ($('apFile')) { bindUpload('apFile', 'apUrl', 'apPrev'); $('apClear').onclick = () => { $('apUrl').value = ''; $('apPrev').outerHTML = '<div class="ph" id="apPrev">Aucune</div>'; }; }
+}
+function featCard(f) {
+  const c = CONFIG, on = !!c.features[f.k], w = f.warn ? f.warn(c) : '';
+  const body = on ? `<div class="fbody">${w ? `<div class="alert err" style="margin-bottom:.8rem"><div>${w}</div></div>` : ''}${f.fields ? FIELDS[f.fields](c, c.extras) : ''}<div class="acts">${f.fields ? `<button class="btn primary sm" data-fsave="${f.fields}">Enregistrer</button>` : ''}${f.go ? `<button class="btn sm ${f.fields ? '' : 'primary'}" data-fgo="${f.go}">${f.gl}</button>` : ''}</div></div>` : '';
+  return `<div class="fcard ${on ? 'on' : ''}" id="fc_${f.k}"><div class="fhead"><span class="fico">${f.ico}</span><div class="ft2"><b>${f.t}</b><span>${f.d}</span></div><label class="sw"><input type="checkbox" data-sw="${f.k}" ${on ? 'checked' : ''} aria-label="${esc(f.t)}" /><i></i></label></div>${body}</div>`;
+}
+VIEWS.fonctions = async () => {
+  CONFIG = (await api('/api/admin/config')).config; applyNav();
+  $('view').innerHTML = `<div class="alert info"><div><b>Activez seulement ce dont vous avez besoin.</b> Chaque interrupteur ajoute ou retire la fonction sur votre site, tout de suite. Rien n'est définitif : vous pouvez changer d'avis quand vous voulez.</div></div>${FEATS.map(featCard).join('')}`;
+  afterFeat();
+  $('view').onchange = async (e) => {
+    const sw = e.target.closest('[data-sw]'); if (!sw) return;
+    const k = sw.dataset.sw, on = sw.checked;
+    try {
+      await saveConfig({ features: { ...CONFIG.features, [k]: on } }); applyNav();
+      $('fc_' + k).outerHTML = featCard(FEATS.find((f) => f.k === k)); afterFeat();
+      toast(on ? 'Activé — visible sur votre site' : 'Désactivé — retiré de votre site');
+    } catch (err) { sw.checked = !on; toast(err.message, true); }
+  };
+  $('view').onclick = async (e) => {
+    const g = e.target.closest('[data-fgo]'); if (g) return go(g.dataset.fgo);
+    const b = e.target.closest('[data-fsave]'); if (!b) return;
+    b.disabled = true;
+    try { await saveConfig({ extras: READ[b.dataset.fsave]() }); toast('Enregistré — le site est à jour'); } catch (err) { toast(err.message, true); }
+    b.disabled = false;
+  };
+};
+
+/* ══════════ Avis, réalisations, FAQ : même mécanique, un seul code ══════════ */
+const stars5 = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
+const COLLS = {
+  avis: {
+    add: '+ Ajouter un avis', emptyT: 'Aucun avis pour le moment', emptyD: 'Copiez ici les bons retours de vos clients (Google, Facebook, SMS…).', del: 'Supprimer cet avis ?', one: 'l\'avis',
+    blank: { auteur: '', texte: '', note: 5, source: '', actif: 1 },
+    card: (x) => `<span class="stars">${stars5(x.note)}</span><p>« ${esc(x.texte)} »</p><b>${esc(x.auteur)}</b>${x.source ? `<span class="muted small">${esc(x.source)}</span>` : ''}`,
+    form: (x) => `${fld('cAu', 'Prénom (ou prénom + initiale)', x.auteur, 'Sophie M.')}<div class="field"><label for="cTx">Son avis</label><textarea id="cTx" maxlength="700">${esc(x.texte)}</textarea></div><div class="row2"><div class="field"><label for="cNo">Note</label><select id="cNo">${[5, 4, 3, 2, 1].map((n) => `<option value="${n}" ${x.note === n ? 'selected' : ''}>${stars5(n)}</option>`).join('')}</select></div>${fld('cSo', 'Où a-t-il été laissé ? (facultatif)', x.source, 'Google, Facebook…')}</div>`,
+    read: () => ({ auteur: $('cAu').value, texte: $('cTx').value, note: +$('cNo').value, source: $('cSo').value }),
+  },
+  galerie: {
+    add: '+ Ajouter une photo', emptyT: 'Aucune photo pour le moment', emptyD: 'Ajoutez des photos de vos réalisations. Pour un « avant / après », ajoutez les deux photos.', del: 'Supprimer cette photo ?', one: 'la photo',
+    blank: { titre: '', legende: '', image_url: '', image_apres_url: '', actif: 1 },
+    card: (x) => (x.image_apres_url ? `<div class="two"><img src="${esc(img(x.image_url))}" alt="Avant" loading="lazy" /><img src="${esc(img(x.image_apres_url))}" alt="Après" loading="lazy" /></div>` : `<img class="th" src="${esc(img(x.image_url))}" alt="" loading="lazy" />`) + `<b>${esc(x.titre) || 'Sans titre'}</b>${x.image_apres_url ? '<span class="muted small">Avant / après</span>' : ''}`,
+    form: (x) => `<div class="field"><label>Photo${'' } (ou photo « avant »)</label>${uploadBlock('gi', x.image_url)}</div><div class="field"><label>Photo « après » (facultatif)</label>${uploadBlock('ga', x.image_apres_url)}<button class="btn sm" type="button" id="gaClear">Retirer la photo « après »</button></div>${fld('cTi', 'Titre (facultatif)', x.titre, 'Rénovation salle de bain')}${fld('cLe', 'Légende (facultatif)', x.legende, 'Réalisé en 3 jours')}`,
+    ready: () => { bindUpload('giFile', 'giUrl', 'giPrev'); bindUpload('gaFile', 'gaUrl', 'gaPrev'); $('gaClear').onclick = () => { $('gaUrl').value = ''; $('gaPrev').outerHTML = '<div class="ph" id="gaPrev">Aucune</div>'; }; },
+    read: () => ({ image_url: $('giUrl').value, image_apres_url: $('gaUrl').value, titre: $('cTi').value, legende: $('cLe').value }),
+  },
+  faq: {
+    add: '+ Ajouter une question', emptyT: 'Aucune question pour le moment', emptyD: 'Exemples : « Faites-vous des devis gratuits ? », « Quels sont vos délais ? ».', del: 'Supprimer cette question ?', one: 'la question',
+    blank: { question: '', reponse: '', actif: 1 },
+    card: (x) => `<b>${esc(x.question)}</b><p>${esc(x.reponse)}</p>`,
+    form: (x) => `${fld('cQ', 'La question', x.question, 'Faites-vous des devis gratuits ?')}<div class="field"><label for="cR">La réponse</label><textarea id="cR" maxlength="1500">${esc(x.reponse)}</textarea></div>`,
+    read: () => ({ question: $('cQ').value, reponse: $('cR').value }),
+  },
+};
+['avis', 'galerie', 'faq'].forEach((key) => {
+  VIEWS[key] = async () => {
+    LIST[key] = (await api('/api/admin/' + key)).items;
+    $('topActions').innerHTML = `<button class="btn primary sm" id="addC">${COLLS[key].add}</button>`;
+    $('addC').onclick = () => collForm(key, null);
+    drawColl(key);
+  };
+});
+function drawColl(key) {
+  const C = COLLS[key], list = LIST[key], on = !!(CONFIG.features || {})[key];
+  $('view').innerHTML = (on ? '' : `<div class="alert info"><div>Cette fonction est <b>désactivée</b> : rien ne s'affiche sur le site pour le moment.</div><button class="btn sm primary" id="actC">Activer</button></div>`)
+    + (list.length
+      ? `<div class="coll">${list.map((x) => `<div class="ci ${x.actif ? '' : 'off'}">${C.card(x)}${x.actif ? '' : '<span class="pill p-perdu" style="align-self:flex-start">Masqué</span>'}<div class="ft"><button class="btn sm" data-ec="${x.id}">Modifier</button><button class="btn sm danger" data-dc="${x.id}">Supprimer</button></div></div>`).join('')}</div>`
+      : `<div class="card big-empty"><b>${C.emptyT}</b><p>${C.emptyD}</p><button class="btn primary" id="addC2">${C.add}</button></div>`);
+  if ($('addC2')) $('addC2').onclick = () => collForm(key, null);
+  if ($('actC')) $('actC').onclick = async () => { try { await saveConfig({ features: { ...CONFIG.features, [key]: true } }); applyNav(); toast('Activé — visible sur votre site'); drawColl(key); } catch (e) { toast(e.message, true); } };
+  $('view').querySelectorAll('[data-ec]').forEach((b) => (b.onclick = () => collForm(key, list.find((x) => x.id === +b.dataset.ec))));
+  $('view').querySelectorAll('[data-dc]').forEach((b) => (b.onclick = async () => {
+    if (!confirm(C.del)) return;
+    try { await api('/api/admin/' + key + '/' + b.dataset.dc, 'DELETE'); LIST[key] = LIST[key].filter((x) => x.id !== +b.dataset.dc); drawColl(key); toast('Supprimé'); } catch (e) { toast(e.message, true); }
+  }));
+}
+function collForm(key, x) {
+  const C = COLLS[key], cur = x || { ...C.blank, ordre: LIST[key].length + 1 };
+  modal(x ? 'Modifier' : C.add.replace('+ ', ''), `${C.form(cur)}<div class="row2"><div class="field"><label for="cO">Position (1 = en premier)</label><input id="cO" type="number" min="0" value="${cur.ordre == null ? LIST[key].length + 1 : cur.ordre}" /></div><div class="field"><label>&nbsp;</label><label class="check"><input type="checkbox" id="cA" ${cur.actif ? 'checked' : ''} /> Visible sur le site</label></div></div>`,
+    `<button class="btn" data-close>Annuler</button><button class="btn primary" id="cSave">Enregistrer</button>`);
+  if (C.ready) C.ready();
+  $('cSave').onclick = async () => {
+    const body = { ...C.read(), ordre: +$('cO').value || 0, actif: $('cA').checked };
+    try {
+      await api('/api/admin/' + key + (x ? '/' + x.id : ''), x ? 'PUT' : 'POST', body);
+      closeModal(); toast('Enregistré — visible sur le site');
+      LIST[key] = (await api('/api/admin/' + key)).items; drawColl(key);
+    } catch (e) { toast(e.message, true); }
+  };
+}
+
+/* ══════════ Newsletter : abonnés + envoi ══════════ */
+const dlBlob = (blob, name) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); };
+VIEWS.newsletter = async () => {
+  const [ab, ca] = await Promise.all([api('/api/admin/abonnes'), api('/api/admin/campagnes')]);
+  LIST.ab = ab.items; LIST.ca = ca.items; drawNl();
+};
+function drawNl(keep) {
+  const on = !!(CONFIG.features || {}).newsletter, act = LIST.ab.filter((x) => x.actif).length;
+  const k = keep || {};
+  $('topActions').innerHTML = '<button class="btn sm" id="nlAdd">+ Ajouter un abonné</button><button class="btn sm" id="nlCsv">Exporter (CSV)</button>';
+  $('view').innerHTML = (on ? '' : '<div class="alert info"><div>Cette fonction est <b>désactivée</b> : le formulaire d\'inscription n\'apparaît pas sur le site.</div><button class="btn sm primary" id="nlOn">Activer</button></div>')
+    + `<div class="card" style="margin-bottom:1rem"><h3>✍️ Écrire un message à mes abonnés</h3>
+      <div class="field"><label for="nSujet">Sujet de l'email</label><input id="nSujet" maxlength="150" value="${esc(k.sujet || '')}" placeholder="Notre offre de la semaine" /></div>
+      <div class="field"><label for="nCorps">Votre message</label><textarea id="nCorps" maxlength="5000" style="min-height:150px" placeholder="Bonjour,&#10;&#10;Écrivez simplement. Une ligne vide = un nouveau paragraphe.">${esc(k.corps || '')}</textarea></div>
+      <div class="row2">${fld('nBtnL', 'Texte du bouton (facultatif)', k.bl || '', 'Voir l\'offre')}${fld('nBtnU', 'Lien du bouton (https://…)', k.bu || '', 'https://')}</div>
+      <div class="alert info" style="margin:.4rem 0 .8rem"><div>Chaque email contient automatiquement un lien de désinscription. Pour écrire à d'autres adresses que la vôtre, le domaine d'envoi doit être vérifié dans Resend, et votre formule Resend limite le nombre d'emails par jour.</div></div>
+      <div class="acts" style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn" id="nTest">M'envoyer un test</button><button class="btn primary" id="nSend" ${act ? '' : 'disabled'}>Envoyer à ${act} abonné${act > 1 ? 's' : ''}</button></div><div id="nRes" style="margin-top:.8rem"></div></div>`
+    + `<div class="card" style="margin-bottom:1rem"><h3>👥 Mes abonnés <span class="muted small">(${act} actif${act > 1 ? 's' : ''} sur ${LIST.ab.length})</span></h3>${LIST.ab.length ? LIST.ab.map((x) => `<div class="li"><span class="t"><b>${esc(x.email)}</b><span>Inscrit le ${fdt(x.created_at)} · ${esc(x.source)} · ${esc((x.lang || 'fr').toUpperCase())}</span></span>${x.actif ? '<span class="pill p-envoye">Actif</span>' : '<span class="pill p-perdu">Désinscrit</span>'}<button class="btn sm danger" data-nldel="${x.id}">Supprimer</button></div>`).join('') : '<div class="big-empty"><b>Aucun abonné pour le moment</b><p>Ils apparaîtront ici dès qu\'un visiteur s\'inscrit depuis votre site.</p></div>'}</div>`
+    + `<div class="card"><h3>🕘 Messages déjà envoyés</h3>${LIST.ca.length ? LIST.ca.map((c) => `<div class="li"><span class="t"><b>${esc(c.sujet)}</b><span>${fdt(c.created_at)} · ${c.nb_ok} / ${c.nb_dest} envoyés${c.detail ? ' · ' + esc(c.detail) : ''}</span></span><span class="pill ${c.statut === 'envoye' ? 'p-envoye' : c.statut === 'partiel' ? 'p-relance' : 'p-echec'}">${c.statut === 'envoye' ? 'Envoyé' : c.statut === 'partiel' ? 'Partiel' : 'Échec'}</span></div>`).join('') : '<p class="muted">Rien d\'envoyé pour l\'instant.</p>'}</div>`;
+  const body = () => ({ sujet: $('nSujet').value, corps: $('nCorps').value, bouton_label: $('nBtnL').value, bouton_url: $('nBtnU').value });
+  const keepNow = () => ({ sujet: $('nSujet').value, corps: $('nCorps').value, bl: $('nBtnL').value, bu: $('nBtnU').value });
+  const show = (ok, html) => { $('nRes').innerHTML = `<div class="alert ${ok ? 'ok' : 'err'}"><div>${html}</div></div>`; };
+  if ($('nlOn')) $('nlOn').onclick = async () => { try { await saveConfig({ features: { ...CONFIG.features, newsletter: true } }); applyNav(); toast('Activé — le formulaire est sur votre site'); drawNl(keepNow()); } catch (e) { toast(e.message, true); } };
+  $('nlCsv').onclick = () => {
+    const q = (v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+    const rows = [['Email', 'Inscrit le', 'Consentement le', 'Source', 'Langue', 'Statut'], ...LIST.ab.map((x) => [x.email, x.created_at.slice(0, 16).replace('T', ' '), (x.consent_at || '').slice(0, 16).replace('T', ' '), x.source, x.lang, x.actif ? 'actif' : 'désinscrit'])];
+    dlBlob(new Blob(['\ufeff' + rows.map((r) => r.map(q).join(';')).join('\r\n')], { type: 'text/csv;charset=utf-8' }), 'abonnes-' + new Date().toISOString().slice(0, 10) + '.csv');
+  };
+  $('nlAdd').onclick = () => {
+    modal('Ajouter un abonné', `${fld('aEmail', 'Adresse email', '', 'client@exemple.fr', '', 'email')}<label class="check" style="margin-top:.5rem"><input type="checkbox" id="aConsent" /> Cette personne m'a demandé de recevoir mes emails</label><div class="hint" style="margin-top:.5rem;font-size:.78rem;color:var(--muted)">N'ajoutez jamais quelqu'un qui ne l'a pas demandé : c'est interdit par la loi (RGPD).</div>`, '<button class="btn" data-close>Annuler</button><button class="btn primary" id="aSave">Ajouter</button>');
+    $('aSave').onclick = async () => {
+      try { await api('/api/admin/abonnes', 'POST', { email: $('aEmail').value, consent: $('aConsent').checked }); closeModal(); toast('Abonné ajouté'); await VIEWS.newsletter(); } catch (e) { toast(e.message, true); }
+    };
+  };
+  $('view').querySelectorAll('[data-nldel]').forEach((b) => (b.onclick = async () => {
+    if (!confirm('Supprimer définitivement cet abonné ?')) return;
+    try { await api('/api/admin/abonnes/' + b.dataset.nldel, 'DELETE'); LIST.ab = LIST.ab.filter((x) => x.id !== +b.dataset.nldel); drawNl(keepNow()); toast('Supprimé'); } catch (e) { toast(e.message, true); }
+  }));
+  $('nTest').onclick = async () => {
+    $('nTest').disabled = true; $('nRes').innerHTML = '<span class="muted">Envoi du test…</span>';
+    try { await api('/api/admin/campagnes', 'POST', { ...body(), test: true }); show(true, `Test envoyé à <b>${esc(CONFIG.pro_email)}</b>. Vérifiez votre boîte (et les indésirables).`); } catch (e) { show(false, esc(e.message)); }
+    $('nTest').disabled = false;
+  };
+  $('nSend').onclick = async () => {
+    if (!confirm(`Envoyer ce message à ${act} abonné${act > 1 ? 's' : ''} ? Cette action est définitive.`)) return;
+    $('nSend').disabled = true; $('nRes').innerHTML = '<span class="muted">Envoi en cours… ne fermez pas la page.</span>';
+    try { const r = await api('/api/admin/campagnes', 'POST', body()); toast(`Envoyé à ${r.sent} abonné${r.sent > 1 ? 's' : ''}`); LIST.ca = (await api('/api/admin/campagnes')).items; drawNl(); }
+    catch (e) { show(false, esc(e.message)); $('nSend').disabled = false; }
+  };
+}
+
+/* ── PDF d'un devis (le pro peut toujours l'ouvrir) ── */
+async function openPdf(id, btn) {
+  if (btn) btn.disabled = true;
+  try {
+    const r = await fetch(API + '/api/admin/devis/' + id + '/pdf', { headers: { Authorization: 'Bearer ' + TOKEN } });
+    if (!r.ok) throw new Error('Impossible de générer le PDF (erreur ' + r.status + ')');
+    dlBlob(await r.blob(), 'devis-' + id + '.pdf'); toast('PDF téléchargé');
+  } catch (e) { toast(e.message, true); }
+  if (btn) btn.disabled = false;
+}
+
+/* ── Sauvegarde complète ── */
+async function exportAll(btn) {
+  btn.disabled = true;
+  try { const d = (await api('/api/admin/export')).data; dlBlob(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), 'sauvegarde-' + new Date().toISOString().slice(0, 10) + '.json'); toast('Sauvegarde téléchargée'); }
+  catch (e) { toast(e.message, true); }
+  btn.disabled = false;
+}
 
 if (TOKEN) boot();
 </script>

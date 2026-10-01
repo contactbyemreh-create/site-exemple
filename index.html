@@ -37,7 +37,9 @@
   nav{position:relative;max-width:1080px;margin:0 auto;padding:1.05rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
   .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--ff-disp);font-weight:700;font-size:1.15rem;}
   .brand img{height:34px;width:34px;border-radius:8px;object-fit:cover;}
-  .nav-links{display:flex;gap:1.6rem;font-size:.88rem;font-weight:600;}
+  .nav-links{display:flex;gap:1.6rem;font-size:.88rem;font-weight:600;white-space:nowrap;}
+  @media(max-width:1180px){.nav-links{gap:1rem;font-size:.82rem;}}
+  @media(max-width:1020px){.nav-links{display:none;}}
   .nav-links a{color:var(--muted);transition:color .2s;}
   .nav-links a:hover{color:var(--accent);}
   .nav-cta{background:var(--accent);color:var(--on-accent);padding:.6rem 1.15rem;border-radius:99px;font-weight:700;font-size:.85rem;white-space:nowrap;box-shadow:0 8px 20px -8px var(--accent);}
@@ -175,7 +177,7 @@
   .contact-info a,.contact-info p{display:block;color:var(--muted);font-size:.95rem;margin-bottom:.55rem;}
   .contact-info a:hover{color:var(--accent);}
   .contact-form{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:1.8rem;}
-  .hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden;}
+  .hp{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0,0,0,0);pointer-events:none;}
 
   footer{padding:2.2rem 0 5.5rem;text-align:center;color:var(--muted-dk);font-size:.82rem;}
   footer a{text-decoration:underline;}
@@ -189,22 +191,106 @@
   .toast{position:fixed;left:50%;bottom:5.2rem;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:.7rem 1.2rem;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:all .3s var(--ease);z-index:1000;max-width:90vw;}
   .toast.show{opacity:1;transform:translate(-50%,0);}
   @media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;scroll-behavior:auto !important;}}
+
+  /* ── Fonctions activables ── */
+  .promo-bar{display:flex;gap:.7rem;align-items:center;justify-content:center;flex-wrap:wrap;background:var(--accent);color:var(--on-accent);padding:.55rem 1rem;font-size:.86rem;font-weight:600;text-align:center;}
+  .promo-bar code{background:rgba(255,255,255,.22);padding:.15rem .55rem;border-radius:8px;font-weight:700;letter-spacing:.04em;font-family:inherit;}
+  .promo-bar button{background:#fff;color:var(--ink);border:0;border-radius:99px;padding:.25rem .8rem;font-weight:700;font-size:.78rem;cursor:pointer;}
+  .wa-fab{position:fixed;right:1.1rem;bottom:1.1rem;z-index:130;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 12px 28px -8px rgba(37,211,102,.7);transition:transform .2s var(--ease);}
+  .wa-fab:hover{transform:scale(1.07);} .wa-fab svg{width:30px;height:30px;fill:#fff;}
+  @media(max-width:820px){.wa-fab{bottom:5.3rem;}}
+  .stars{color:#F5A623;letter-spacing:.08em;font-size:1rem;white-space:nowrap;}
+  .avis-head{text-align:center;margin:-1.2rem 0 2rem;color:var(--muted);font-weight:600;} .avis-head .stars{font-size:1.25rem;margin-right:.4rem;}
+  .avis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,380px));justify-content:center;gap:1.1rem;}
+  .avis-card{background:#fff;border:1.5px solid var(--border);border-radius:18px;padding:1.3rem 1.3rem 1.1rem;display:flex;flex-direction:column;gap:.7rem;}
+  .avis-card p{font-size:.92rem;color:var(--ink);line-height:1.6;flex:1;white-space:pre-line;}
+  .avis-card footer{all:unset;display:flex;justify-content:space-between;align-items:center;gap:.6rem;font-size:.82rem;color:var(--muted);}
+  .avis-card footer b{color:var(--ink);font-size:.9rem;}
+  .gal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,340px));justify-content:center;gap:1rem;}
+  .gal-item{position:relative;border:0;padding:0;background:var(--paper-dim);border-radius:16px;overflow:hidden;cursor:zoom-in;text-align:left;aspect-ratio:4/3;}
+  .gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease);} .gal-item:hover img{transform:scale(1.05);}
+  .gal-item .ba{display:grid;grid-template-columns:1fr 1fr;height:100%;gap:2px;} .gal-item .ba div{position:relative;overflow:hidden;}
+  .gal-item .tag{position:absolute;left:.5rem;top:.5rem;background:rgba(0,0,0,.6);color:#fff;font-size:.68rem;font-weight:700;padding:.15rem .5rem;border-radius:99px;}
+  .gal-item .cap{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .7rem;background:linear-gradient(transparent,rgba(0,0,0,.62));color:#fff;font-size:.82rem;font-weight:600;}
+  .lightbox{position:fixed;inset:0;z-index:300;background:rgba(10,12,16,.88);display:none;align-items:center;justify-content:center;padding:1rem;flex-direction:column;gap:.8rem;overflow:auto;}
+  .lightbox.open{display:flex;} .lightbox img{max-width:min(92vw,980px);max-height:72vh;border-radius:12px;object-fit:contain;}
+  .lightbox .pair{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;} .lightbox .pair figure{text-align:center;color:#fff;font-size:.8rem;}
+  .lightbox .pair img{max-width:min(44vw,480px);} .lightbox p{color:#fff;font-weight:600;text-align:center;max-width:600px;}
+  .lightbox .lb-x{position:absolute;top:.9rem;right:.9rem;width:42px;height:42px;border-radius:50%;border:0;background:#fff;font-size:1.1rem;cursor:pointer;}
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:.6rem;}
+  .faq-list details{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:0 1.1rem;}
+  .faq-list summary{list-style:none;cursor:pointer;padding:1rem 0;font-weight:700;font-size:.95rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;}
+  .faq-list summary::-webkit-details-marker{display:none;} .faq-list summary::after{content:"+";font-size:1.4rem;color:var(--accent);line-height:1;transition:transform .2s;}
+  .faq-list details[open] summary::after{transform:rotate(45deg);} .faq-list details p{padding:0 0 1.1rem;color:var(--muted);font-size:.92rem;white-space:pre-line;}
+  .infos-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:1.6rem;align-items:stretch;max-width:980px;margin:0 auto;} .infos-grid.solo{grid-template-columns:minmax(0,520px);justify-content:center;}
+  @media(max-width:760px){.infos-grid{grid-template-columns:1fr;}}
+  .hours{background:#fff;border:1.5px solid var(--border);border-radius:18px;padding:1.3rem 1.4rem;}
+  .open-badge{display:inline-flex;align-items:center;gap:.45rem;font-weight:700;font-size:.85rem;padding:.3rem .8rem;border-radius:99px;margin-bottom:.9rem;}
+  .open-badge i{width:9px;height:9px;border-radius:50%;background:currentColor;} .open-badge.on{background:#E6F6EC;color:#1a7a3c;} .open-badge.off{background:#FDECEA;color:#C0392B;}
+  .hours-row{display:flex;justify-content:space-between;gap:1rem;padding:.42rem 0;border-top:1px solid var(--border);font-size:.9rem;color:var(--muted);} .hours-row:first-of-type{border-top:0;}
+  .hours-row.today{color:var(--ink);font-weight:700;} .hours-note{margin-top:.8rem;font-size:.82rem;color:var(--muted);}
+  .map-box{border:1.5px solid var(--border);border-radius:18px;overflow:hidden;min-height:300px;background:var(--paper-dim);} .map-box iframe{width:100%;height:100%;min-height:300px;border:0;display:block;}
+
+  /* ── Nouvelles fonctions : langues, à propos, newsletter, réseaux, légal ── */
+  .nav-right{display:flex;align-items:center;gap:.7rem;}
+  .lang{position:relative;} .lang-btn{display:flex;align-items:center;gap:.35rem;background:#fff;border:1.5px solid var(--border);border-radius:99px;padding:.42rem .8rem;font-weight:700;font-size:.8rem;color:var(--ink);cursor:pointer;}
+  .lang-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;}
+  .lang-menu{position:absolute;top:calc(100% + 6px);right:0;min-width:150px;background:#fff;border:1.5px solid var(--border);border-radius:14px;box-shadow:0 16px 36px -14px rgba(0,0,0,.3);padding:.35rem;display:none;z-index:200;}
+  .lang.open .lang-menu{display:block;} .lang-menu button{display:flex;justify-content:space-between;width:100%;border:0;background:none;padding:.55rem .75rem;border-radius:9px;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--ink);text-align:start;}
+  .lang-menu button:hover,.lang-menu button[aria-checked=true]{background:var(--paper-dim);}
+  .close-bar{background:#B42318;color:#fff;text-align:center;padding:.6rem 1rem;font-size:.88rem;font-weight:600;}
+  .about{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:2.4rem;align-items:center;max-width:1000px;margin:0 auto;} .about.solo{grid-template-columns:minmax(0,680px);justify-content:center;text-align:center;}
+  .about img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:22px;box-shadow:0 24px 50px -28px rgba(0,0,0,.45);}
+  .about h2{font-size:clamp(1.5rem,3.4vw,2.1rem);margin-bottom:.9rem;text-align:start;} .about.solo h2{text-align:center;} .about p{color:var(--muted);line-height:1.75;white-space:pre-line;}
+  .stats{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:1.5rem;} .about.solo .stats{justify-content:center;} .stat b{display:block;font-size:2rem;font-weight:800;color:var(--accent);line-height:1.1;} .stat span{font-size:.82rem;color:var(--muted);font-weight:600;}
+  @media(max-width:760px){.about{grid-template-columns:1fr;}}
+  .nl{background:var(--ink);color:#fff;border-radius:24px;padding:2.2rem 1.6rem;max-width:760px;margin:0 auto;text-align:center;}
+  .nl h2{font-size:clamp(1.4rem,3vw,1.9rem);margin-bottom:.4rem;color:#fff;} .nl p.sub{color:rgba(255,255,255,.72);margin-bottom:1.3rem;}
+  .nl-row{display:flex;gap:.6rem;max-width:480px;margin:0 auto;} .nl-row input{flex:1;min-width:0;padding:.85rem 1rem;border-radius:99px;border:0;font-size:.95rem;}
+  .nl-row .btn{white-space:nowrap;} .nl-consent{display:flex;gap:.55rem;align-items:flex-start;justify-content:center;max-width:480px;margin:.9rem auto 0;font-size:.78rem;color:rgba(255,255,255,.72);text-align:start;line-height:1.5;} .nl-consent input{margin-top:.2rem;}
+  .nl .form-msg{color:#fff;} .nl .form-msg.err{color:#FFB4A8;} .nl .form-msg.ok{color:#A8F0C6;}
+  @media(max-width:520px){.nl-row{flex-direction:column;}}
+  .socials{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem;} .socials a{display:inline-flex;align-items:center;padding:.38rem .85rem;border:1.5px solid var(--border);border-radius:99px;font-size:.82rem;font-weight:700;color:var(--ink);background:#fff;} .socials a:hover{border-color:var(--accent);color:var(--accent);}
+  .socials a.gavis{background:#FFF7E0;border-color:#F3D9A4;color:#8A5A00;}
+  .legal-links{margin-top:.4rem;display:flex;gap:.4rem 1.1rem;justify-content:center;flex-wrap:wrap;} .legal-links button{background:none;border:0;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;padding:0;opacity:.85;}
+  .legal-body h3{font-size:1.05rem;margin:1.3rem 0 .4rem;} .legal-body p,.legal-body li{color:var(--muted);font-size:.92rem;line-height:1.7;} .legal-body ul{padding-inline-start:1.2rem;margin:.3rem 0;}
+  .map-ph{display:grid;place-items:center;align-content:center;gap:.7rem;padding:1.5rem;text-align:center;min-height:300px;color:var(--muted);font-size:.88rem;}
+  .promo-field{display:flex;gap:.5rem;align-items:center;margin:.2rem 0 1rem;} .promo-field input{flex:1;max-width:220px;} .promo-ok{font-size:.82rem;color:#1a7a3c;font-weight:700;} .promo-ko{font-size:.82rem;color:#B42318;font-weight:600;}
+  .done-actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem;}
+  /* ── Arabe : sens de lecture de droite à gauche ── */
+  [dir=rtl] body{font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;}
+  [dir=rtl] .quick,[dir=rtl] .field,[dir=rtl] .sim-choice,[dir=rtl] .sim-option,[dir=rtl] .blog-card,[dir=rtl] .gal-item{text-align:right;}
+  [dir=rtl] .sim-choice small{margin-left:0;margin-right:auto;}
+  [dir=rtl] .badge{left:auto;right:.8rem;} [dir=rtl] .close-x,[dir=rtl] .lightbox .lb-x{right:auto;left:1rem;}
+  [dir=rtl] .gal-item .tag{left:auto;right:.5rem;} [dir=rtl] .wa-fab{right:auto;left:1.1rem;} [dir=rtl] .lang-menu{right:auto;left:0;}
+  [dir=rtl] .avis-head .stars{margin-right:0;margin-left:.4rem;} [dir=rtl] .range-scale,[dir=rtl] input[type=range]{direction:ltr;}
+  [dir=rtl] .contact-info{text-align:right;} [dir=rtl] .hours-row span:last-child{direction:ltr;}
 </style>
 </head>
 <body>
+
+<div class="close-bar hidden" id="closeBar" role="status"></div>
+<div class="promo-bar hidden" id="promoBar"><span id="promoTxt"></span><code id="promoCode" class="hidden"></code><button type="button" id="promoCopy" class="hidden">Copier le code</button></div>
 
 <header>
   <div class="glass-bar"></div>
   <nav aria-label="Navigation principale">
     <a href="#" class="brand"><img id="brandLogo" src="" alt="" width="34" height="34" class="hidden"/><span id="brandName">Votre Entreprise</span></a>
     <div class="nav-links">
-      <a href="#produits">Produits</a>
-      <a href="#devis">Devis en ligne</a>
+      <a href="#produits" id="navProduits">Produits</a>
+      <a href="#devis" id="navDevis">Devis en ligne</a>
       <a href="#rdv" id="navRdv" class="hidden">Rendez-vous</a>
+      <a href="#apropos" id="navApropos" class="hidden">À propos</a>
+      <a href="#galerie" id="navGalerie" class="hidden">Réalisations</a>
+      <a href="#avis" id="navAvis" class="hidden">Avis</a>
       <a href="#blog" id="navBlog" class="hidden">Actualités</a>
+      <a href="#faq" id="navFaq" class="hidden">FAQ</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="#devis" class="nav-cta" data-cta="nav">Demander un devis</a>
+    <div class="nav-right">
+      <div class="lang hidden" id="lang"><button class="lang-btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Langue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span id="langCur">FR</span></button><div class="lang-menu" id="langMenu" role="menu"></div></div>
+      <a href="#devis" class="nav-cta" id="navCta" data-cta="nav">Demander un devis</a>
+    </div>
   </nav>
 </header>
 
@@ -216,13 +302,13 @@
       <h1 id="heroTagline">Un slogan clair, qui donne envie de vous faire confiance.</h1>
       <p id="heroDescription">Décrivez ici votre activité en une ou deux phrases : ce que vous faites, pour qui, et ce qui vous rend différent.</p>
       <div class="hero-actions">
-        <a href="#devis" class="btn btn-primary" data-cta="hero-devis">Estimer mon prix</a>
+        <a href="#devis" class="btn btn-primary" id="heroDevis" data-cta="hero-devis">Estimer mon prix</a>
         <a href="#rdv" class="btn btn-secondary hidden" id="heroRdv" data-cta="hero-rdv">Prendre rendez-vous</a>
         <a href="#contact" class="btn btn-secondary" id="heroContact">Nous écrire</a>
       </div>
       <div class="quick" id="quick">
         <a href="#produits" id="qShop"><span class="ico"><svg class="i" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span><div><strong id="qShopT">Nos offres</strong><span id="qShopS">Découvrir ce que nous proposons</span></div></a>
-        <a href="#devis"><span class="ico"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h8"/></svg></span><div><strong>Estimer mon prix</strong><span>Simulation en moins d'une minute</span></div></a>
+        <a href="#devis" id="qDevis"><span class="ico"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h8"/></svg></span><div><strong>Estimer mon prix</strong><span>Simulation en moins d'une minute</span></div></a>
         <a href="#rdv" id="qRdv" class="hidden"><span class="ico"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div><strong>Réserver un créneau</strong><span>Choisissez le jour et l'heure</span></div></a>
       </div>
     </div>
@@ -266,6 +352,7 @@
           <div class="sim-step" data-step="4">
             <h3 tabindex="-1" id="resTitle">Votre estimation</h3>
             <div class="sim-result" id="simResult"></div>
+            <div class="promo-field hidden" id="promoField"><input type="text" id="simCode" placeholder="Code promo" autocomplete="off" aria-label="Code promo" style="padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:12px"/><span id="promoMsg"></span></div>
             <div class="field-row">
               <div class="field"><label for="simNom">Nom</label><input type="text" id="simNom" autocomplete="name" required/></div>
               <div class="field"><label for="simTel">Téléphone</label><input type="tel" id="simTel" autocomplete="tel"/></div>
@@ -283,11 +370,37 @@
               <h3 tabindex="-1">Demande envoyée</h3>
               <div class="sim-result" id="simDoneResult" style="margin:1rem 0"></div>
               <p class="sim-hint" id="simDoneText"></p>
-              <button class="btn btn-secondary" id="simReset">Faire une nouvelle simulation</button>
+              <div class="done-actions"><a class="btn btn-accent hidden" id="simPdf" href="#" target="_blank" rel="noopener">Télécharger mon estimation (PDF)</a><button class="btn btn-secondary" id="simReset">Faire une nouvelle simulation</button></div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="apropos" class="hidden">
+    <div class="wrap">
+      <div class="about" id="aboutBox">
+        <img id="aboutImg" class="hidden" alt="" loading="lazy" decoding="async"/>
+        <div><h2 id="aboutTitre">À propos</h2><p id="aboutTexte"></p><div class="stats" id="aboutStats"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="galerie" class="hidden">
+    <div class="wrap">
+      <h2 class="section-title">Nos réalisations</h2>
+      <p class="section-sub">Quelques exemples de ce que nous faisons.</p>
+      <div class="gal-grid" id="galGrid"></div>
+    </div>
+  </section>
+
+  <section id="avis" class="hidden" style="background:var(--paper-dim)">
+    <div class="wrap">
+      <h2 class="section-title">Ils nous font confiance</h2>
+      <p class="section-sub">Les retours de nos clients.</p>
+      <div class="avis-head" id="avisHead"></div>
+      <div class="avis-grid" id="avisGrid"></div>
     </div>
   </section>
 
@@ -308,6 +421,25 @@
     </div>
   </section>
 
+  <section id="faq" class="hidden">
+    <div class="wrap">
+      <h2 class="section-title">Questions fréquentes</h2>
+      <p class="section-sub">Les réponses aux questions qu'on nous pose le plus.</p>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </section>
+
+  <section id="infos" class="hidden">
+    <div class="wrap">
+      <h2 class="section-title">Horaires &amp; accès</h2>
+      <p class="section-sub" id="infosAdresse"></p>
+      <div class="infos-grid" id="infosGrid">
+        <div class="hours" id="hoursBox"></div>
+        <div class="map-box" id="mapBox"></div>
+      </div>
+    </div>
+  </section>
+
   <section class="contact-section" id="contact">
     <div class="wrap">
       <h2 class="section-title">Parlons de votre projet</h2>
@@ -318,6 +450,7 @@
           <p id="contactAdresse">Marseille, France</p>
           <a id="contactTel" href="#">06 00 00 00 00</a>
           <a id="contactEmail" href="#">contact@votre-entreprise.fr</a>
+          <div class="socials hidden" id="socials"></div>
         </div>
         <form class="contact-form" id="contactForm" novalidate>
           <div class="field-row">
@@ -335,14 +468,29 @@
       </div>
     </div>
   </section>
+  <section id="newsletter" class="hidden" style="padding-top:0">
+    <div class="wrap">
+      <form class="nl" id="nlForm" novalidate>
+        <h2 id="nlTitre">Restez informé</h2>
+        <p class="sub" id="nlTexte">Recevez nos actualités et nos offres. Pas de spam, désinscription en un clic.</p>
+        <div class="nl-row"><input type="email" id="nlEmail" placeholder="Votre email" autocomplete="email" aria-label="Votre email" required/><button type="submit" class="btn btn-accent" id="nlBtn">S'inscrire</button></div>
+        <input type="text" id="nlWebsite" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+        <label class="nl-consent"><input type="checkbox" id="nlConsent"/><span id="nlConsentTxt"></span></label>
+        <p class="form-msg" id="nlMsg" role="alert"></p>
+      </form>
+    </div>
+  </section>
 </main>
 
 <footer>
   <p>© <span id="yearNow"></span> <span id="footerNom">Votre Entreprise</span><span class="sep">|</span>Site de démonstration conçu par <a href="https://byemreh.fr" target="_blank" rel="noopener">ByEmreh</a><span class="sep">|</span><a href="admin.html" rel="nofollow">Espace pro</a></p>
+  <div class="legal-links hidden" id="legalLinks"><button type="button" data-legal="mentions">Mentions légales</button><button type="button" data-legal="confidentialite">Politique de confidentialité</button></div>
 </footer>
 
+<div class="article-overlay" id="legalOverlay" role="dialog" aria-modal="true" aria-labelledby="legalTitre"><div class="article-panel"><button class="close-x" id="legalClose" aria-label="Fermer">✕</button><h2 id="legalTitre"></h2><div class="legal-body" id="legalBody"></div></div></div>
+
 <div class="mbar" id="mbar">
-  <a href="#devis" class="btn btn-primary" data-cta="mbar-devis">Estimer mon prix</a>
+  <a href="#devis" class="btn btn-primary" id="mbarDevis" data-cta="mbar-devis">Estimer mon prix</a>
   <a href="#rdv" class="btn btn-accent hidden" id="mbarRdv" data-cta="mbar-rdv">Prendre RDV</a>
   <a href="#contact" class="btn btn-secondary" id="mbarContact">Écrire</a>
 </div>
@@ -356,7 +504,164 @@
     <div class="content" id="articleContenu"></div>
   </div>
 </div>
+<a class="wa-fab hidden" id="waFab" href="#" target="_blank" rel="noopener noreferrer" aria-label="Nous écrire sur WhatsApp" data-wa="fab"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3C8.86 3 3.03 8.82 3.03 16c0 2.29.6 4.52 1.73 6.49L3 29l6.69-1.75A12.96 12.96 0 0 0 16.04 29C23.22 29 29.05 23.18 29.05 16S23.22 3 16.04 3Zm0 23.8c-1.96 0-3.88-.53-5.55-1.52l-.4-.24-3.97 1.04 1.06-3.87-.26-.4A10.76 10.76 0 0 1 5.24 16c0-5.96 4.85-10.8 10.8-10.8S26.84 10.04 26.84 16 22 26.8 16.04 26.8Zm5.92-8.08c-.32-.16-1.92-.95-2.22-1.06-.3-.11-.51-.16-.73.16-.22.32-.84 1.06-1.03 1.27-.19.22-.38.24-.7.08-.32-.16-1.37-.5-2.6-1.6-.96-.86-1.6-1.91-1.79-2.23-.19-.32-.02-.5.14-.66.15-.14.32-.38.48-.57.16-.19.22-.32.32-.54.11-.22.05-.4-.03-.56-.08-.16-.73-1.76-1-2.41-.26-.63-.53-.54-.73-.55h-.62c-.22 0-.57.08-.87.4-.3.32-1.14 1.11-1.14 2.72s1.17 3.15 1.33 3.37c.16.22 2.3 3.51 5.57 4.92.78.34 1.39.54 1.86.69.78.25 1.49.21 2.05.13.63-.09 1.92-.78 2.19-1.54.27-.76.27-1.4.19-1.54-.08-.14-.3-.22-.62-.38Z"/></svg></a>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button class="lb-x" id="lbClose" aria-label="Fermer">✕</button><div id="lbBody"></div></div>
+
 <div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ══════════ Traduction automatique des textes du site (FR → EN / ES / AR) ══════════
+   Les textes fixes (boutons, formulaires, messages) sont traduits ici.
+   Les textes écrits par le professionnel (produits, FAQ, avis…) restent dans sa langue. */
+(function () {
+  const D = {
+    en: {
+      'Produits': 'Products', 'Devis en ligne': 'Online quote', 'Rendez-vous': 'Appointments', 'À propos': 'About us', 'Réalisations': 'Our work', 'Avis': 'Reviews', 'Actualités': 'News', 'FAQ': 'FAQ', 'Contact': 'Contact',
+      'Demander un devis': 'Get a quote', 'Nous contacter': 'Contact us', 'Site de démonstration ByEmreh': 'ByEmreh demo site', 'Estimer mon prix': 'Estimate my price', 'Prendre rendez-vous': 'Book an appointment', 'Nous écrire': 'Write to us',
+      'Nos offres': 'Our offers', 'Découvrir ce que nous proposons': 'Discover what we offer', 'Commander en ligne': 'Order online', 'Paiement sécurisé par Stripe': 'Secure payment by Stripe', "Simulation en moins d'une minute": 'Quote in under a minute', 'Réserver un créneau': 'Book a slot', "Choisissez le jour et l'heure": 'Pick the day and time',
+      'Nos produits et prestations': 'Our products and services', 'Commandez en ligne en un clic, ou demandez un devis pour une offre sur mesure.': 'Order online in one click, or request a quote for a tailor-made offer.', 'Commander': 'Order', 'Nos offres arrivent bientôt.': 'Our offers are coming soon.',
+      'Simulateur de devis': 'Quote simulator', 'Choisissez votre besoin, ajustez les options : vous obtenez une estimation immédiate, sans engagement.': 'Choose what you need and adjust the options: you get an instant estimate, no commitment.', 'Décrivez votre besoin en quelques clics : le professionnel étudie votre demande et vous répond avec un prix sur mesure.': 'Describe your need in a few clicks: the professional reviews your request and replies with a tailored price.',
+      'Terminé': 'Done', 'Quelle prestation vous intéresse ?': 'Which service are you interested in?', 'Continuer': 'Continue', 'Quelle quantité ?': 'What quantity?', 'Faites glisser pour ajuster.': 'Slide to adjust.', 'Retour': 'Back', 'Des options en plus ?': 'Any extra options?', 'Facultatif — cochez ce qui vous intéresse.': 'Optional — tick what interests you.', 'Voir mon estimation': 'See my estimate', 'Votre estimation': 'Your estimate',
+      'Code promo': 'Promo code', 'Code non valide': 'Invalid code', 'Nom': 'Name', 'Téléphone': 'Phone', 'Email': 'Email', 'Précisions (facultatif)': 'Details (optional)', 'Vos coordonnées servent uniquement à vous répondre au sujet de cette demande.': 'Your details are only used to reply to this request.',
+      'Envoyer ma demande': 'Send my request', 'Envoi en cours…': 'Sending…', 'Demande envoyée': 'Request sent', 'Télécharger mon estimation (PDF)': 'Download my estimate (PDF)', 'Faire une nouvelle simulation': 'Run a new simulation', 'Estimation indicative': 'Indicative estimate', 'Votre demande': 'Your request', 'Demande enregistrée': 'Request recorded', 'Le professionnel vous répond avec un prix adapté.': 'The professional will reply with a suitable price.',
+      'Aucune prestation disponible pour le moment.': 'No service available at the moment.', 'Aucune option pour cette prestation.': 'No options for this service.', 'Indiquez votre nom.': 'Please enter your name.', 'Indiquez un email valide pour recevoir la réponse.': 'Please enter a valid email to receive the reply.', 'Connexion impossible. Vérifiez votre réseau et réessayez.': 'Connection failed. Check your network and try again.', "L'envoi a échoué, réessayez.": 'Sending failed, please try again.',
+      'Parlons de votre projet': "Let's talk about your project", 'Une question, une demande particulière ? Écrivez-nous, vous recevez une confirmation.': "A question or a special request? Write to us — you'll receive a confirmation.", 'Question générale': 'General question', 'Sujet': 'Subject', 'Votre message': 'Your message', 'Vos coordonnées servent uniquement à vous répondre.': 'Your details are only used to reply to you.', 'Envoyer le message': 'Send message',
+      'Renseignez votre nom et votre message.': 'Please enter your name and message.', 'Message envoyé. Vous recevez une confirmation par email.': "Message sent. You'll receive a confirmation by email.", 'Message envoyé. Nous revenons vers vous rapidement.': "Message sent. We'll get back to you shortly.", 'Message envoyé ✓': 'Message sent ✓', "L'envoi a échoué. Réessayez ou contactez-nous directement par téléphone.": 'Sending failed. Try again or call us directly.',
+      'Choisissez directement le créneau qui vous arrange : la confirmation arrive par email.': 'Pick the slot that suits you: the confirmation arrives by email.', "Le calendrier ne s'affiche pas ?": 'Calendar not showing?', 'Ouvrir la page de réservation': 'Open the booking page', 'Conseils et nouveautés.': 'Tips and news.', "Impossible de charger l'article.": 'Unable to load the article.',
+      'Nos réalisations': 'Our work', 'Quelques exemples de ce que nous faisons.': 'A few examples of what we do.', 'Avant': 'Before', 'Après': 'After', 'Ils nous font confiance': 'They trust us', 'Les retours de nos clients.': 'Feedback from our customers.', 'Questions fréquentes': 'Frequently asked questions', "Les réponses aux questions qu'on nous pose le plus.": 'Answers to the questions we hear most.',
+      'Horaires & accès': 'Opening hours & location', 'Fermé': 'Closed', 'Fermé actuellement': 'Currently closed', 'Fermé exceptionnellement': 'Closed exceptionally', 'Afficher la carte': 'Show map', 'Itinéraire (Google Maps)': 'Directions (Google Maps)', "La carte est fournie par Google : elle ne se charge qu'après votre clic.": 'The map is provided by Google and loads only after you click.',
+      'Copier le code': 'Copy code', 'Restez informé': 'Stay in the loop', 'Recevez nos actualités et nos offres. Pas de spam, désinscription en un clic.': 'Get our news and offers. No spam, unsubscribe in one click.', 'Votre email': 'Your email', "S'inscrire": 'Subscribe', 'Indiquez un email valide.': 'Please enter a valid email.', 'Cochez la case pour accepter de recevoir nos emails.': 'Tick the box to agree to receive our emails.',
+      'Merci ! Vous êtes bien inscrit(e).': "Thank you! You're subscribed.", 'Inscription confirmée ✓': 'Subscription confirmed ✓', 'Connexion impossible. Réessayez.': 'Connection failed. Please try again.', "L'inscription a échoué, réessayez.": 'Subscription failed, please try again.', '★ Laisser un avis Google': '★ Leave a Google review',
+      'Site de démonstration conçu par': 'Demo site built by', 'Espace pro': 'Pro area', 'Mentions légales': 'Legal notice', 'Politique de confidentialité': 'Privacy policy', 'Prendre RDV': 'Book', 'Écrire': 'Write',
+      'Fermer': 'Close', 'Nous écrire sur WhatsApp': 'Message us on WhatsApp', 'Photo agrandie': 'Enlarged photo', 'Navigation principale': 'Main navigation', 'Langue': 'Language', 'Prestation': 'Service',
+      'Lundi': 'Monday', 'Mardi': 'Tuesday', 'Mercredi': 'Wednesday', 'Jeudi': 'Thursday', 'Vendredi': 'Friday', 'Samedi': 'Saturday', 'Dimanche': 'Sunday'
+    },
+    es: {
+      'Produits': 'Productos', 'Devis en ligne': 'Presupuesto en línea', 'Rendez-vous': 'Citas', 'À propos': 'Sobre nosotros', 'Réalisations': 'Realizaciones', 'Avis': 'Opiniones', 'Actualités': 'Novedades', 'FAQ': 'Preguntas frecuentes', 'Contact': 'Contacto',
+      'Demander un devis': 'Pedir presupuesto', 'Nous contacter': 'Contáctenos', 'Site de démonstration ByEmreh': 'Sitio de demostración de ByEmreh', 'Estimer mon prix': 'Calcular mi precio', 'Prendre rendez-vous': 'Pedir una cita', 'Nous écrire': 'Escríbanos',
+      'Nos offres': 'Nuestras ofertas', 'Découvrir ce que nous proposons': 'Descubra lo que ofrecemos', 'Commander en ligne': 'Pedir en línea', 'Paiement sécurisé par Stripe': 'Pago seguro con Stripe', "Simulation en moins d'une minute": 'Simulación en menos de un minuto', 'Réserver un créneau': 'Reservar un horario', "Choisissez le jour et l'heure": 'Elija el día y la hora',
+      'Nos produits et prestations': 'Nuestros productos y servicios', 'Commandez en ligne en un clic, ou demandez un devis pour une offre sur mesure.': 'Pida en línea con un clic o solicite un presupuesto a medida.', 'Commander': 'Pedir', 'Nos offres arrivent bientôt.': 'Pronto tendremos ofertas.',
+      'Simulateur de devis': 'Simulador de presupuesto', 'Choisissez votre besoin, ajustez les options : vous obtenez une estimation immédiate, sans engagement.': 'Elija lo que necesita y ajuste las opciones: obtendrá una estimación inmediata, sin compromiso.', 'Décrivez votre besoin en quelques clics : le professionnel étudie votre demande et vous répond avec un prix sur mesure.': 'Describa su necesidad en unos clics: el profesional estudia su solicitud y le responde con un precio a medida.',
+      'Terminé': 'Terminado', 'Quelle prestation vous intéresse ?': '¿Qué servicio le interesa?', 'Continuer': 'Continuar', 'Quelle quantité ?': '¿Qué cantidad?', 'Faites glisser pour ajuster.': 'Deslice para ajustar.', 'Retour': 'Atrás', 'Des options en plus ?': '¿Alguna opción adicional?', 'Facultatif — cochez ce qui vous intéresse.': 'Opcional: marque lo que le interese.', 'Voir mon estimation': 'Ver mi estimación', 'Votre estimation': 'Su estimación',
+      'Code promo': 'Código promocional', 'Code non valide': 'Código no válido', 'Nom': 'Nombre', 'Téléphone': 'Teléfono', 'Email': 'Correo electrónico', 'Précisions (facultatif)': 'Detalles (opcional)', 'Vos coordonnées servent uniquement à vous répondre au sujet de cette demande.': 'Sus datos solo se usan para responder a esta solicitud.',
+      'Envoyer ma demande': 'Enviar mi solicitud', 'Envoi en cours…': 'Enviando…', 'Demande envoyée': 'Solicitud enviada', 'Télécharger mon estimation (PDF)': 'Descargar mi estimación (PDF)', 'Faire une nouvelle simulation': 'Hacer una nueva simulación', 'Estimation indicative': 'Estimación orientativa', 'Votre demande': 'Su solicitud', 'Demande enregistrée': 'Solicitud registrada', 'Le professionnel vous répond avec un prix adapté.': 'El profesional le responderá con un precio adecuado.',
+      'Aucune prestation disponible pour le moment.': 'Ningún servicio disponible por ahora.', 'Aucune option pour cette prestation.': 'Sin opciones para este servicio.', 'Indiquez votre nom.': 'Indique su nombre.', 'Indiquez un email valide pour recevoir la réponse.': 'Indique un correo válido para recibir la respuesta.', 'Connexion impossible. Vérifiez votre réseau et réessayez.': 'No se pudo conectar. Compruebe su red e inténtelo de nuevo.', "L'envoi a échoué, réessayez.": 'El envío falló, inténtelo de nuevo.',
+      'Parlons de votre projet': 'Hablemos de su proyecto', 'Une question, une demande particulière ? Écrivez-nous, vous recevez une confirmation.': '¿Una pregunta o una petición especial? Escríbanos: recibirá una confirmación.', 'Question générale': 'Pregunta general', 'Sujet': 'Asunto', 'Votre message': 'Su mensaje', 'Vos coordonnées servent uniquement à vous répondre.': 'Sus datos solo se usan para responderle.', 'Envoyer le message': 'Enviar mensaje',
+      'Renseignez votre nom et votre message.': 'Indique su nombre y su mensaje.', 'Message envoyé. Vous recevez une confirmation par email.': 'Mensaje enviado. Recibirá una confirmación por correo.', 'Message envoyé. Nous revenons vers vous rapidement.': 'Mensaje enviado. Le responderemos en breve.', 'Message envoyé ✓': 'Mensaje enviado ✓', "L'envoi a échoué. Réessayez ou contactez-nous directement par téléphone.": 'El envío falló. Inténtelo de nuevo o llámenos directamente.',
+      'Choisissez directement le créneau qui vous arrange : la confirmation arrive par email.': 'Elija el horario que le convenga: la confirmación llega por correo.', "Le calendrier ne s'affiche pas ?": '¿No se muestra el calendario?', 'Ouvrir la page de réservation': 'Abrir la página de reserva', 'Conseils et nouveautés.': 'Consejos y novedades.', "Impossible de charger l'article.": 'No se pudo cargar el artículo.',
+      'Nos réalisations': 'Nuestros trabajos', 'Quelques exemples de ce que nous faisons.': 'Algunos ejemplos de lo que hacemos.', 'Avant': 'Antes', 'Après': 'Después', 'Ils nous font confiance': 'Confían en nosotros', 'Les retours de nos clients.': 'Opiniones de nuestros clientes.', 'Questions fréquentes': 'Preguntas frecuentes', "Les réponses aux questions qu'on nous pose le plus.": 'Respuestas a las preguntas más habituales.',
+      'Horaires & accès': 'Horario y cómo llegar', 'Fermé': 'Cerrado', 'Fermé actuellement': 'Cerrado actualmente', 'Fermé exceptionnellement': 'Cerrado excepcionalmente', 'Afficher la carte': 'Mostrar mapa', 'Itinéraire (Google Maps)': 'Cómo llegar (Google Maps)', "La carte est fournie par Google : elle ne se charge qu'après votre clic.": 'El mapa lo ofrece Google y solo se carga tras hacer clic.',
+      'Copier le code': 'Copiar código', 'Restez informé': 'Manténgase informado', 'Recevez nos actualités et nos offres. Pas de spam, désinscription en un clic.': 'Reciba nuestras novedades y ofertas. Sin spam, baja con un clic.', 'Votre email': 'Su correo electrónico', "S'inscrire": 'Suscribirse', 'Indiquez un email valide.': 'Indique un correo válido.', 'Cochez la case pour accepter de recevoir nos emails.': 'Marque la casilla para aceptar recibir nuestros correos.',
+      'Merci ! Vous êtes bien inscrit(e).': '¡Gracias! Ya está suscrito.', 'Inscription confirmée ✓': 'Suscripción confirmada ✓', 'Connexion impossible. Réessayez.': 'No se pudo conectar. Inténtelo de nuevo.', "L'inscription a échoué, réessayez.": 'La suscripción falló, inténtelo de nuevo.', '★ Laisser un avis Google': '★ Dejar una reseña en Google',
+      'Site de démonstration conçu par': 'Sitio de demostración creado por', 'Espace pro': 'Área profesional', 'Mentions légales': 'Aviso legal', 'Politique de confidentialité': 'Política de privacidad', 'Prendre RDV': 'Reservar', 'Écrire': 'Escribir',
+      'Fermer': 'Cerrar', 'Nous écrire sur WhatsApp': 'Escríbanos por WhatsApp', 'Photo agrandie': 'Foto ampliada', 'Navigation principale': 'Navegación principal', 'Langue': 'Idioma', 'Prestation': 'Servicio',
+      'Lundi': 'Lunes', 'Mardi': 'Martes', 'Mercredi': 'Miércoles', 'Jeudi': 'Jueves', 'Vendredi': 'Viernes', 'Samedi': 'Sábado', 'Dimanche': 'Domingo'
+    },
+    ar: {
+      'Produits': 'المنتجات', 'Devis en ligne': 'عرض سعر عبر الإنترنت', 'Rendez-vous': 'المواعيد', 'À propos': 'من نحن', 'Réalisations': 'أعمالنا', 'Avis': 'آراء العملاء', 'Actualités': 'الأخبار', 'FAQ': 'الأسئلة الشائعة', 'Contact': 'اتصل بنا',
+      'Demander un devis': 'اطلب عرض سعر', 'Nous contacter': 'تواصل معنا', 'Site de démonstration ByEmreh': 'موقع تجريبي من ByEmreh', 'Estimer mon prix': 'قدّر سعري', 'Prendre rendez-vous': 'احجز موعدًا', 'Nous écrire': 'راسلنا',
+      'Nos offres': 'عروضنا', 'Découvrir ce que nous proposons': 'اكتشف ما نقدّمه', 'Commander en ligne': 'اطلب عبر الإنترنت', 'Paiement sécurisé par Stripe': 'دفع آمن عبر Stripe', "Simulation en moins d'une minute": 'محاكاة في أقل من دقيقة', 'Réserver un créneau': 'احجز موعدًا', "Choisissez le jour et l'heure": 'اختر اليوم والساعة',
+      'Nos produits et prestations': 'منتجاتنا وخدماتنا', 'Commandez en ligne en un clic, ou demandez un devis pour une offre sur mesure.': 'اطلب عبر الإنترنت بنقرة واحدة، أو اطلب عرض سعر لعرض مخصّص.', 'Commander': 'اطلب الآن', 'Nos offres arrivent bientôt.': 'عروضنا قادمة قريبًا.',
+      'Simulateur de devis': 'محاكي عرض السعر', 'Choisissez votre besoin, ajustez les options : vous obtenez une estimation immédiate, sans engagement.': 'اختر ما تحتاجه وعدّل الخيارات: ستحصل على تقدير فوري دون أي التزام.', 'Décrivez votre besoin en quelques clics : le professionnel étudie votre demande et vous répond avec un prix sur mesure.': 'صف احتياجك ببضع نقرات: يدرس المختص طلبك ويرد عليك بسعر مناسب.',
+      'Terminé': 'تم', 'Quelle prestation vous intéresse ?': 'ما الخدمة التي تهمّك؟', 'Continuer': 'متابعة', 'Quelle quantité ?': 'ما الكمية؟', 'Faites glisser pour ajuster.': 'اسحب للتعديل.', 'Retour': 'رجوع', 'Des options en plus ?': 'هل تريد خيارات إضافية؟', 'Facultatif — cochez ce qui vous intéresse.': 'اختياري — حدّد ما يهمّك.', 'Voir mon estimation': 'اعرض تقديري', 'Votre estimation': 'تقديرك',
+      'Code promo': 'رمز الخصم', 'Code non valide': 'رمز غير صالح', 'Nom': 'الاسم', 'Téléphone': 'الهاتف', 'Email': 'البريد الإلكتروني', 'Précisions (facultatif)': 'تفاصيل (اختياري)', 'Vos coordonnées servent uniquement à vous répondre au sujet de cette demande.': 'تُستخدم بياناتك فقط للرد على هذا الطلب.',
+      'Envoyer ma demande': 'أرسل طلبي', 'Envoi en cours…': 'جارٍ الإرسال…', 'Demande envoyée': 'تم إرسال الطلب', 'Télécharger mon estimation (PDF)': 'تحميل تقديري (PDF)', 'Faire une nouvelle simulation': 'إجراء محاكاة جديدة', 'Estimation indicative': 'تقدير تقريبي', 'Votre demande': 'طلبك', 'Demande enregistrée': 'تم تسجيل الطلب', 'Le professionnel vous répond avec un prix adapté.': 'سيرد عليك المختص بسعر مناسب.',
+      'Aucune prestation disponible pour le moment.': 'لا توجد خدمات متاحة حاليًا.', 'Aucune option pour cette prestation.': 'لا توجد خيارات لهذه الخدمة.', 'Indiquez votre nom.': 'يرجى إدخال اسمك.', 'Indiquez un email valide pour recevoir la réponse.': 'يرجى إدخال بريد إلكتروني صالح لتلقي الرد.', 'Connexion impossible. Vérifiez votre réseau et réessayez.': 'تعذّر الاتصال. تحقق من الشبكة وأعد المحاولة.', "L'envoi a échoué, réessayez.": 'فشل الإرسال، أعد المحاولة.',
+      'Parlons de votre projet': 'لنتحدث عن مشروعك', 'Une question, une demande particulière ? Écrivez-nous, vous recevez une confirmation.': 'هل لديك سؤال أو طلب خاص؟ راسلنا وستصلك رسالة تأكيد.', 'Question générale': 'سؤال عام', 'Sujet': 'الموضوع', 'Votre message': 'رسالتك', 'Vos coordonnées servent uniquement à vous répondre.': 'تُستخدم بياناتك فقط للرد عليك.', 'Envoyer le message': 'إرسال الرسالة',
+      'Renseignez votre nom et votre message.': 'يرجى إدخال اسمك ورسالتك.', 'Message envoyé. Vous recevez une confirmation par email.': 'تم إرسال الرسالة. ستصلك رسالة تأكيد عبر البريد.', 'Message envoyé. Nous revenons vers vous rapidement.': 'تم إرسال الرسالة. سنعاود الاتصال بك قريبًا.', 'Message envoyé ✓': 'تم إرسال الرسالة ✓', "L'envoi a échoué. Réessayez ou contactez-nous directement par téléphone.": 'فشل الإرسال. أعد المحاولة أو اتصل بنا مباشرة.',
+      'Choisissez directement le créneau qui vous arrange : la confirmation arrive par email.': 'اختر الموعد المناسب لك: ستصلك رسالة التأكيد عبر البريد.', "Le calendrier ne s'affiche pas ?": 'لا يظهر التقويم؟', 'Ouvrir la page de réservation': 'افتح صفحة الحجز', 'Conseils et nouveautés.': 'نصائح ومستجدات.', "Impossible de charger l'article.": 'تعذّر تحميل المقال.',
+      'Nos réalisations': 'أعمالنا', 'Quelques exemples de ce que nous faisons.': 'بعض الأمثلة على ما نقوم به.', 'Avant': 'قبل', 'Après': 'بعد', 'Ils nous font confiance': 'يثقون بنا', 'Les retours de nos clients.': 'آراء عملائنا.', 'Questions fréquentes': 'الأسئلة الشائعة', "Les réponses aux questions qu'on nous pose le plus.": 'إجابات عن أكثر الأسئلة التي تصلنا.',
+      'Horaires & accès': 'ساعات العمل والموقع', 'Fermé': 'مغلق', 'Fermé actuellement': 'مغلق حاليًا', 'Fermé exceptionnellement': 'مغلق بشكل استثنائي', 'Afficher la carte': 'عرض الخريطة', 'Itinéraire (Google Maps)': 'الاتجاهات (Google Maps)', "La carte est fournie par Google : elle ne se charge qu'après votre clic.": 'الخريطة مقدّمة من Google ولا تُحمَّل إلا بعد نقرك.',
+      'Copier le code': 'نسخ الرمز', 'Restez informé': 'ابقَ على اطلاع', 'Recevez nos actualités et nos offres. Pas de spam, désinscription en un clic.': 'استقبل أخبارنا وعروضنا. بلا رسائل مزعجة، وإلغاء الاشتراك بنقرة.', 'Votre email': 'بريدك الإلكتروني', "S'inscrire": 'اشترك', 'Indiquez un email valide.': 'يرجى إدخال بريد إلكتروني صالح.', 'Cochez la case pour accepter de recevoir nos emails.': 'حدّد المربع للموافقة على استلام رسائلنا.',
+      'Merci ! Vous êtes bien inscrit(e).': 'شكرًا لك! تم تسجيلك.', 'Inscription confirmée ✓': 'تم تأكيد الاشتراك ✓', 'Connexion impossible. Réessayez.': 'تعذّر الاتصال. أعد المحاولة.', "L'inscription a échoué, réessayez.": 'فشل الاشتراك، أعد المحاولة.', '★ Laisser un avis Google': '★ اترك تقييمًا على Google',
+      'Site de démonstration conçu par': 'موقع تجريبي من تصميم', 'Espace pro': 'المساحة المهنية', 'Mentions légales': 'الإشعار القانوني', 'Politique de confidentialité': 'سياسة الخصوصية', 'Prendre RDV': 'احجز', 'Écrire': 'راسلنا',
+      'Fermer': 'إغلاق', 'Nous écrire sur WhatsApp': 'راسلنا عبر واتساب', 'Photo agrandie': 'صورة مكبّرة', 'Navigation principale': 'التنقل الرئيسي', 'Langue': 'اللغة', 'Prestation': 'الخدمة',
+      'Lundi': 'الاثنين', 'Mardi': 'الثلاثاء', 'Mercredi': 'الأربعاء', 'Jeudi': 'الخميس', 'Vendredi': 'الجمعة', 'Samedi': 'السبت', 'Dimanche': 'الأحد'
+    }
+  };
+  const DAYS_FR = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+  const DAYS_L = { en: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], es: ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'], ar: ['الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'] };
+  const dayIdx = (d) => DAYS_FR.indexOf(d.toLowerCase());
+  /* Phrases avec une valeur variable : [expression, { langue: gabarit ou fonction }] */
+  const P = [
+    [/^Étape (\d+) sur (\d+)$/, { en: 'Step $1 of $2', es: 'Paso $1 de $2', ar: 'الخطوة $1 من $2' }],
+    [/^Code appliqué : (.+)$/, { en: 'Code applied: $1', es: 'Código aplicado: $1', ar: 'تم تطبيق الرمز: $1' }],
+    [/^Code « (.+) » copié$/, { en: 'Code “$1” copied', es: 'Código «$1» copiado', ar: 'تم نسخ الرمز «$1»' }],
+    [/^Code : (.+)$/, { en: 'Code: $1', es: 'Código: $1', ar: 'الرمز: $1' }],
+    [/^(.+) a bien reçu votre demande et vous répond à (.+)\.$/, { en: '$1 has received your request and will reply to $2.', es: '$1 ha recibido su solicitud y le responderá en $2.', ar: 'تلقّى $1 طلبك وسيردّ عليك على $2.' }],
+    [/^([\d,]+) \/ 5 · (\d+) avis$/, { en: '$1 / 5 · $2 reviews', es: '$1 / 5 · $2 opiniones', ar: '$1 / 5 · $2 تقييم' }],
+    [/^J'accepte de recevoir les emails de (.+)\. Je peux me désinscrire à tout moment\.$/, { en: 'I agree to receive emails from $1. I can unsubscribe at any time.', es: 'Acepto recibir correos de $1. Puedo darme de baja en cualquier momento.', ar: 'أوافق على استلام رسائل $1 ويمكنني إلغاء الاشتراك في أي وقت.' }],
+    [/^Ouvert maintenant · ferme à (.+)$/, { en: 'Open now · closes at $1', es: 'Abierto ahora · cierra a las $1', ar: 'مفتوح الآن · يغلق الساعة $1' }],
+    [/^Fermé · ouvre aujourd'hui à (.+)$/, { en: 'Closed · opens today at $1', es: 'Cerrado · abre hoy a las $1', ar: 'مغلق · يفتح اليوم الساعة $1' }],
+    [/^Fermé · ouvre demain à (.+)$/, { en: 'Closed · opens tomorrow at $1', es: 'Cerrado · abre mañana a las $1', ar: 'مغلق · يفتح غدًا الساعة $1' }],
+    [/^Fermé · ouvre (lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche) à (.+)$/, {
+      en: (m, d, t) => `Closed · opens on ${DAYS_L.en[dayIdx(d)]} at ${t}`, es: (m, d, t) => `Cerrado · abre el ${DAYS_L.es[dayIdx(d)]} a las ${t}`, ar: (m, d, t) => `مغلق · يفتح يوم ${DAYS_L.ar[dayIdx(d)]} الساعة ${t}` }],
+    [/ · (\d+) options?$/, { en: ' · $1 option(s)', es: ' · $1 opción(es)', ar: ' · $1 خيار(ات)' }],
+  ];
+  const ORIG = new WeakMap(), AORIG = new WeakMap(), ATTRS = ['placeholder', 'aria-label', 'title'], SKIP = 'script,style,textarea,[data-notr]';
+  let lang = 'fr', obs = null;
+
+  function tr(str) {
+    if (lang === 'fr' || !str) return str;
+    const key = str.trim(); if (!key) return str;
+    const d = D[lang][key]; if (d) return str.replace(key, () => d);
+    for (const [re, m] of P) { const v = m[lang]; if (re.test(key)) return str.replace(key, () => key.replace(re, v)); }
+    return str;
+  }
+  function doText(n) {
+    if (n.parentElement && n.parentElement.closest(SKIP)) return;
+    const st = ORIG.get(n);
+    const fr = st && n.data === st.out ? st.fr : n.data;
+    const out = lang === 'fr' ? fr : tr(fr);
+    if (out !== n.data) n.data = out;
+    ORIG.set(n, { fr, out });
+  }
+  function doAttrs(el) {
+    if (el.closest && el.closest('[data-notr]')) return;
+    for (const a of ATTRS) {
+      if (!el.hasAttribute || !el.hasAttribute(a)) continue;
+      let m = AORIG.get(el); if (!m) { m = {}; AORIG.set(el, m); }
+      const cur = el.getAttribute(a), st = m[a];
+      const fr = st && cur === st.out ? st.fr : cur;
+      const out = lang === 'fr' ? fr : tr(fr);
+      if (out !== cur) el.setAttribute(a, out);
+      m[a] = { fr, out };
+    }
+  }
+  function walk(root) {
+    if (root.nodeType === 3) { doText(root); return; }
+    if (root.nodeType !== 1) return;
+    if (root.matches && root.matches(SKIP)) return;
+    doAttrs(root);
+    const it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+    let n; while ((n = it.nextNode())) { if (n.nodeType === 3) doText(n); else if (!n.matches(SKIP)) doAttrs(n); }
+  }
+  function start() {
+    if (obs) return;
+    obs = new MutationObserver((recs) => {
+      obs.disconnect();
+      for (const r of recs) {
+        if (r.type === 'childList') r.addedNodes.forEach(walk);
+        else if (r.type === 'characterData') doText(r.target);
+        else if (r.type === 'attributes') doAttrs(r.target);
+      }
+      obs.observe(document.body, OPTS);
+    });
+    obs.observe(document.body, OPTS);
+  }
+  const OPTS = { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS };
+  function set(l) {
+    lang = D[l] || l === 'fr' ? l : 'fr';
+    const h = document.documentElement; h.lang = lang; h.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    if (obs) { obs.disconnect(); obs = null; }
+    walk(document.body);
+    if (lang !== 'fr') start();
+    const cur = document.getElementById('langCur'); if (cur) cur.textContent = lang.toUpperCase();
+  }
+  window.I18 = { get lang() { return lang; }, set, tr };
+})();
+</script>
 
 <script>
 const API = ((window.APP_CONFIG || {}).API_BASE || '').replace(/\/$/, '');
@@ -397,7 +702,11 @@ function track(type, label) {
     track('view', src || 'direct');
   } catch (e) { /* ignore */ }
 })();
-document.addEventListener('click', (e) => { const a = e.target.closest('[data-cta]'); if (a) track('cta_click', a.dataset.cta); });
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-cta]'); if (a) track('cta_click', a.dataset.cta);
+  const w = e.target.closest('[data-wa]'); if (w) track('wa_click', w.dataset.wa);
+  const t = e.target.closest('a[href^="tel:"]'); if (t) track('call_click', 'tel');
+});
 
 /* ══════════ Utilitaires d'affichage ══════════ */
 function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 3200); }
@@ -407,14 +716,14 @@ const show = (id, on) => $(id).classList.toggle('hidden', !on);
 /* ══════════ Chargement ══════════ */
 async function loadSite(fresh) {
   let cached = null;
-  try { cached = JSON.parse(localStorage.getItem('bootstrap_v2') || 'null'); } catch (e) { /* ignore */ }
+  try { cached = JSON.parse(localStorage.getItem('bootstrap_v3') || 'null'); } catch (e) { /* ignore */ }
   if (cached && !fresh) render(cached); // affichage instantané au retour
   try {
     if (!API || API.includes('TON-SOUS-DOMAINE')) throw new Error('API non configurée');
     const res = await fetch(API + '/api/bootstrap' + (fresh ? '?t=' + Date.now() : ''));
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    try { localStorage.setItem('bootstrap_v2', JSON.stringify(data)); } catch (e) { /* ignore */ }
+    try { localStorage.setItem('bootstrap_v3', JSON.stringify(data)); } catch (e) { /* ignore */ }
     if (JSON.stringify(data) !== JSON.stringify(DATA)) render(data);
   } catch (e) {
     console.info('API indisponible, mode démo.', e.message);
@@ -431,29 +740,196 @@ function render(data) {
   document.documentElement.style.setProperty('--on-accent', onAccent(c.couleur_primaire));
   $('themeColor').content = c.couleur_primaire;
   $('brandName').textContent = c.nom_entreprise; $('footerNom').textContent = c.nom_entreprise; $('contactNom').textContent = c.nom_entreprise;
-  $('heroTagline').textContent = c.tagline; $('heroDescription').textContent = c.description;
+  applyUserTexts();
   $('contactAdresse').textContent = c.adresse;
   const tel = $('contactTel'); tel.textContent = c.telephone; tel.href = 'tel:' + String(c.telephone).replace(/[^\d+]/g, '');
   const em = $('contactEmail'); em.textContent = c.email_contact; em.href = 'mailto:' + c.email_contact;
   const logo = $('brandLogo');
   if (c.logo_url) { logo.src = img(c.logo_url); logo.classList.remove('hidden'); } else logo.classList.add('hidden');
 
-  const hasCal = !!c.cal_link;
+  const F = feat(c), X = c.extras || {};
+  const hasCal = !!c.cal_link && F.rdv;
   ['navRdv', 'heroRdv', 'qRdv', 'mbarRdv', 'rdv'].forEach((id) => show(id, hasCal));
-  show('heroContact', !hasCal); show('mbarContact', !hasCal);
-  setupCal(c.cal_link, c.nom_entreprise);
+  show('heroContact', !hasCal || !F.simulateur); show('mbarContact', !hasCal || !F.simulateur);
+  setupCal(hasCal ? c.cal_link : '', c.nom_entreprise);
 
-  const arts = data.articles || [];
+  // Interrupteurs : produits / simulateur
+  ['produits', 'navProduits', 'qShop'].forEach((id) => show(id, F.produits));
+  ['devis', 'navDevis', 'qDevis', 'heroDevis', 'mbarDevis'].forEach((id) => show(id, F.simulateur));
+  const cta = $('navCta'); cta.textContent = F.simulateur ? 'Demander un devis' : 'Nous contacter'; cta.setAttribute('href', F.simulateur ? '#devis' : '#contact');
+
+  const arts = F.blog ? (data.articles || []) : [];
   show('blog', arts.length > 0); show('navBlog', arts.length > 0);
   renderBlog(arts);
   renderPrestations();
   simInit();
-  injectSchema(c);
+  renderPromo(F, X);
+  renderWa(c, F, X);
+  renderAvis(F.avis ? data.avis || [] : []);
+  renderGalerie(F.galerie ? data.galerie || [] : []);
+  renderFaq(F.faq ? data.faq || [] : []);
+  renderInfos(c, F, X);
+  renderApropos(F, X); renderNewsletter(F, X); renderSocials(F, X); renderLegalLinks(F);
+  setupLang(F, X);
+  applySeo(c, F, X);
+}
+const FEAT_DEF = { produits: true, simulateur: true, rdv: true, blog: true, seo: true, avis: false, galerie: false, faq: false, horaires: false, whatsapp: false, promo: false, pdf: false, newsletter: false, langues: false, reseaux: false, legal: false, apropos: false };
+const LANG_NAMES = { fr: 'Français', en: 'English', es: 'Español', ar: 'العربية' };
+const curLang = () => (window.I18 ? I18.lang : 'fr');
+const loc = () => ({ fr: 'fr-FR', en: 'en-GB', es: 'es-ES', ar: 'ar-u-nu-latn' }[curLang()] || 'fr-FR');
+const lxOf = () => (curLang() === 'fr' ? {} : (((CFG && CFG.extras) || {}).i18n || {})[curLang()] || {});
+const todayParis = () => new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+const feat = (c) => Object.assign({}, FEAT_DEF, (c && c.features) || {});
+
+/* ══════════ Bandeau promo ══════════ */
+function renderPromo(F, X) {
+  const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+  const on = F.promo && X.promo_texte && (!X.promo_fin || today <= X.promo_fin);
+  show('promoBar', !!on); if (!on) return;
+  $('promoTxt').textContent = lxOf().promo_texte || X.promo_texte;
+  show('promoCode', !!X.promo_code); show('promoCopy', !!X.promo_code);
+  $('promoCode').textContent = X.promo_code || '';
+}
+$('promoCopy').onclick = () => {
+  const code = $('promoCode').textContent;
+  $('simCode').value = code; (navigator.clipboard ? navigator.clipboard.writeText(code) : Promise.reject()).then(() => toast('Code « ' + code + ' » copié'), () => toast('Code : ' + code));
+};
+
+/* ══════════ WhatsApp ══════════ */
+function waUrl(c, X) {
+  let n = String(X.wa_numero || c.telephone || '').replace(/[^\d+]/g, '');
+  if (/^0\d{9}$/.test(n)) n = '33' + n.slice(1);
+  n = n.replace(/^\+/, '').replace(/^00/, '');
+  if (n.length < 9) return '';
+  return 'https://wa.me/' + n + '?text=' + encodeURIComponent(X.wa_message || 'Bonjour, je vous contacte depuis votre site.');
+}
+function renderWa(c, F, X) {
+  const u = F.whatsapp ? waUrl(c, X) : '';
+  show('waFab', !!u); if (u) $('waFab').href = u;
 }
 
-function injectSchema(c) {
+/* ══════════ Avis ══════════ */
+const stars = (n) => '★'.repeat(n) + '<span style="opacity:.3">' + '★'.repeat(5 - n) + '</span>';
+function renderAvis(list) {
+  show('avis', list.length > 0); show('navAvis', list.length > 0);
+  if (!list.length) return;
+  const avg = list.reduce((s, a) => s + a.note, 0) / list.length;
+  $('avisHead').innerHTML = `<span class="stars">${stars(Math.round(avg))}</span>${String(avg.toFixed(1)).replace('.', ',')} / 5 · ${list.length} avis`;
+  $('avisGrid').innerHTML = list.map((a) => `<article class="avis-card"><span class="stars">${stars(a.note)}</span><p>« ${esc(a.texte)} »</p><footer><b>${esc(a.auteur)}</b><span>${esc(a.source)}</span></footer></article>`).join('');
+}
+
+/* ══════════ Galerie ══════════ */
+let GAL = [];
+function renderGalerie(list) {
+  GAL = list; show('galerie', list.length > 0); show('navGalerie', list.length > 0);
+  $('galGrid').innerHTML = list.map((g, i) => `<button class="gal-item" data-i="${i}" type="button" aria-label="Agrandir ${esc(g.titre || 'la photo')}">`
+    + (g.image_apres_url
+      ? `<div class="ba"><div><img src="${esc(img(g.image_url))}" alt="Avant" loading="lazy" decoding="async"/><span class="tag">Avant</span></div><div><img src="${esc(img(g.image_apres_url))}" alt="Après" loading="lazy" decoding="async"/><span class="tag">Après</span></div></div>`
+      : `<img src="${esc(img(g.image_url))}" alt="${esc(g.titre)}" loading="lazy" decoding="async"/>`)
+    + (g.titre ? `<span class="cap">${esc(g.titre)}</span>` : '') + '</button>').join('');
+}
+$('galGrid').addEventListener('click', (e) => {
+  const b = e.target.closest('.gal-item'); if (!b) return;
+  const g = GAL[+b.dataset.i]; if (!g) return;
+  $('lbBody').innerHTML = (g.image_apres_url
+    ? `<div class="pair"><figure><img src="${esc(img(g.image_url))}" alt="Avant"/><figcaption>Avant</figcaption></figure><figure><img src="${esc(img(g.image_apres_url))}" alt="Après"/><figcaption>Après</figcaption></figure></div>`
+    : `<img src="${esc(img(g.image_url))}" alt="${esc(g.titre)}"/>`) + (g.legende || g.titre ? `<p>${esc(g.legende || g.titre)}</p>` : '');
+  $('lightbox').classList.add('open'); document.body.style.overflow = 'hidden'; $('lbClose').focus();
+});
+function closeLb() { $('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+$('lbClose').onclick = closeLb;
+$('lightbox').addEventListener('click', (e) => { if (e.target === $('lightbox')) closeLb(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+
+/* ══════════ FAQ ══════════ */
+function renderFaq(list) {
+  show('faq', list.length > 0); show('navFaq', list.length > 0);
+  $('faqList').innerHTML = list.map((f) => `<details><summary>${esc(f.question)}</summary><p>${esc(f.reponse)}</p></details>`).join('');
+}
+
+/* ══════════ Horaires + carte ══════════ */
+const JOURS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+const toMin = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+const plages = (h) => [[h.d, h.f], [h.d2, h.f2]].filter(([a, b]) => a && b && toMin(b) > toMin(a));
+function parisNow() {
+  const wd = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Paris', weekday: 'short' }).format(new Date());
+  const t = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+  const hh = (+t.find((x) => x.type === 'hour').value) % 24, mm = +t.find((x) => x.type === 'minute').value;
+  return { day: { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 }[wd], min: hh * 60 + mm };
+}
+function isClosed(X) {
+  if (!X.fermeture_texte) return false;
+  const t = todayParis();
+  if (X.fermeture_du && t < X.fermeture_du) return false;
+  if (X.fermeture_au && t > X.fermeture_au) return false;
+  return true;
+}
+function openStatus(hs, closed) {
+  if (closed) return { on: false, txt: 'Fermé exceptionnellement' };
+  const now = parisNow();
+  const today = hs[now.day];
+  if (today.o) {
+    for (const [a, b] of plages(today)) if (now.min >= toMin(a) && now.min < toMin(b)) return { on: true, txt: 'Ouvert maintenant · ferme à ' + b };
+  }
+  for (let k = 0; k < 7; k++) {
+    const d = (now.day + k) % 7, h = hs[d];
+    if (!h.o) continue;
+    const p = plages(h).find(([a]) => k > 0 || toMin(a) > now.min);
+    if (p) return { on: false, txt: 'Fermé · ouvre ' + (k === 0 ? "aujourd'hui" : k === 1 ? 'demain' : JOURS[d].toLowerCase()) + ' à ' + p[0] };
+  }
+  return { on: false, txt: 'Fermé actuellement' };
+}
+function renderInfos(c, F, X) {
+  const closed = !!F.horaires && isClosed(X); show('closeBar', closed); if (closed) $('closeBar').textContent = X.fermeture_texte;
+  const on = F.horaires; show('infos', on); if (!on) return;
+  const hs = X.horaires || [];
+  const st = openStatus(hs, closed), today = parisNow().day;
+  $('infosAdresse').textContent = c.adresse || '';
+  $('hoursBox').innerHTML = `<div class="open-badge ${st.on ? 'on' : 'off'}"><i></i>${esc(st.txt)}</div>`
+    + hs.map((h, i) => `<div class="hours-row ${i === today ? 'today' : ''}"><span>${JOURS[i]}</span><span>${h.o && plages(h).length ? plages(h).map(([a, b]) => a + ' – ' + b).join(' · ') : 'Fermé'}</span></div>`).join('')
+    + (X.horaires_note ? `<p class="hours-note">${esc(X.horaires_note)}</p>` : '');
+  const showMap = X.carte && c.adresse;
+  show('mapBox', !!showMap); $('infosGrid').classList.toggle('solo', !showMap);
+  if (showMap) {
+    const q = encodeURIComponent(c.adresse), box = $('mapBox');
+    if (box.dataset.q !== q) {
+      box.dataset.q = q;
+      box.innerHTML = `<div class="map-ph"><strong>${esc(c.adresse)}</strong><button class="btn btn-secondary" id="mapLoad" type="button">Afficher la carte</button><a href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener noreferrer">Itinéraire (Google Maps)</a><small>La carte est fournie par Google : elle ne se charge qu'après votre clic.</small></div>`;
+      $('mapLoad').onclick = () => { box.innerHTML = `<iframe title="Carte" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${q}&output=embed"></iframe>`; };
+    }
+  }
+}
+
+/* ══════════ Référencement local (titre, description, partage, données structurées) ══════════ */
+function setMeta(attr, key, val) {
+  let m = document.querySelector(`meta[${attr}="${key}"]`);
+  if (!m) { m = document.createElement('meta'); m.setAttribute(attr, key); document.head.appendChild(m); }
+  m.content = val;
+}
+function applySeo(c, F, X) {
+  if (!F.seo) { injectSchema(c, F, X); return; }
+  const lx = lxOf(), foreign = curLang() !== 'fr';
+  const title = foreign && lx.tagline ? c.nom_entreprise + ' — ' + lx.tagline.slice(0, 60) : (X.seo_titre || (c.nom_entreprise + ' — ' + c.tagline.slice(0, 60)));
+  const desc = ((foreign && lx.description) || X.seo_description || c.description || '').slice(0, 160);
+  document.title = title;
+  document.querySelector('meta[name=description]').content = desc;
+  setMeta('property', 'og:title', title); setMeta('property', 'og:description', desc);
+  setMeta('property', 'og:type', 'website'); setMeta('property', 'og:locale', 'fr_FR');
+  if (c.logo_url) setMeta('property', 'og:image', img(c.logo_url));
+  injectSchema(c, F, X);
+}
+
+function injectSchema(c, F, X) {
+  F = F || feat(c); X = X || c.extras || {};
   let s = $('ld'); if (!s) { s = document.createElement('script'); s.type = 'application/ld+json'; s.id = 'ld'; document.head.appendChild(s); }
-  s.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'LocalBusiness', name: c.nom_entreprise, description: c.description, telephone: c.telephone, email: c.email_contact, address: { '@type': 'PostalAddress', addressLocality: c.adresse }, url: location.href.split('#')[0] });
+  const o = { '@context': 'https://schema.org', '@type': 'LocalBusiness', name: c.nom_entreprise, description: c.description, telephone: c.telephone, email: c.email_contact, address: { '@type': 'PostalAddress', streetAddress: c.adresse, addressLocality: X.seo_ville || c.adresse, addressCountry: 'FR' }, url: location.href.split('#')[0] };
+  if (c.logo_url) o.image = img(c.logo_url);
+  if (X.seo_ville) o.areaServed = X.seo_ville;
+  if (F.horaires && (X.horaires || []).length) {
+    const D = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    o.openingHoursSpecification = X.horaires.flatMap((h, i) => (h.o ? plages(h).map(([a, b]) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: D[i], opens: a, closes: b })) : []));
+  }
+  s.textContent = JSON.stringify(o);
 }
 
 /* ══════════ Produits & prestations ══════════ */
@@ -471,7 +947,9 @@ function renderPrestations() {
       : `<div class="prest-ph" aria-hidden="true">${esc(p.titre.slice(0, 2).toUpperCase())}</div>`;
     const btn = p.stripe_url
       ? `<a class="btn btn-accent" href="${esc(p.stripe_url)}" target="_blank" rel="noopener noreferrer" data-buy="${esc(p.titre)}">${esc(p.bouton_label || 'Commander')}</a>`
-      : `<button class="btn btn-secondary" data-quote="${p.id}">Demander un devis</button>`;
+      : (feat(CFG).simulateur
+        ? `<button class="btn btn-secondary" data-quote="${p.id}">Demander un devis</button>`
+        : `<button class="btn btn-secondary" data-contact="${esc(p.titre)}">Nous contacter</button>`);
     card.innerHTML = `${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${media}<div class="prest-body"><h3>${esc(p.titre)}</h3><p>${esc(p.description)}</p><div class="prest-foot"><span class="prest-price">${esc(p.prix_affiche)}</span>${btn}</div></div>`;
     grid.appendChild(card);
     const o = document.createElement('option'); o.value = p.titre; o.textContent = p.titre; sel.appendChild(o);
@@ -480,6 +958,8 @@ function renderPrestations() {
 }
 $('prestGrid').addEventListener('click', (e) => {
   const buy = e.target.closest('[data-buy]'); if (buy) { track('buy_click', buy.dataset.buy); return; }
+  const ct = e.target.closest('[data-contact]');
+  if (ct) { $('cPrestation').value = ct.dataset.contact; track('cta_click', 'produit-contact'); $('contact').scrollIntoView(); return; }
   const q = e.target.closest('[data-quote]');
   if (q) { simSelect(+q.dataset.quote); simGo(1, true); track('cta_click', 'produit-devis'); $('devis').scrollIntoView(); }
 });
@@ -509,7 +989,7 @@ function renderBlog(list) {
     const card = document.createElement('button'); card.className = 'blog-card'; card.type = 'button';
     card.dataset.slug = a.slug;
     card.innerHTML = (a.image_url ? `<img class="blog-img" src="${esc(img(a.image_url))}" alt="" width="480" height="270" loading="lazy" decoding="async"/>` : '')
-      + `<div class="blog-body"><div class="blog-date">${new Date(a.date_publication).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div><h3>${esc(a.titre)}</h3><p>${esc(a.extrait)}</p></div>`;
+      + `<div class="blog-body"><div class="blog-date">${new Date(a.date_publication).toLocaleDateString(loc(), { day: 'numeric', month: 'long', year: 'numeric' })}</div><h3>${esc(a.titre)}</h3><p>${esc(a.extrait)}</p></div>`;
     grid.appendChild(card);
   });
 }
@@ -521,7 +1001,7 @@ $('blogGrid').addEventListener('click', async (e) => {
     if (slug.startsWith('demo-')) a = DEMO.articles.find((x) => x.slug === slug);
     else { const r = await fetch(API + '/api/articles/' + encodeURIComponent(slug)); a = (await r.json()).article; }
     $('articleTitre').textContent = a.titre;
-    $('articleDate').textContent = new Date(a.date_publication).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    $('articleDate').textContent = new Date(a.date_publication).toLocaleDateString(loc(), { day: 'numeric', month: 'long', year: 'numeric' });
     $('articleContenu').textContent = a.contenu;
     const im = $('articleImg'); if (a.image_url) { im.src = img(a.image_url); im.classList.remove('hidden'); } else im.classList.add('hidden');
     $('articleOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; $('articleClose').focus();
@@ -536,14 +1016,26 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeArtic
 const S = { prest: null, qty: 5, opts: new Set(), step: 1, started: false, est: null };
 const simCard = $('simCard');
 
+function promoInfo() {
+  const F = feat(CFG), X = CFG.extras || {}, code = ($('simCode').value || '').trim().toUpperCase();
+  if (!F.promo || !X.promo_remise || !X.promo_code || !code) return { pct: 0, state: 'none' };
+  if (code === X.promo_code.toUpperCase() && (!X.promo_fin || todayParis() <= X.promo_fin)) return { pct: X.promo_remise, state: 'ok' };
+  return { pct: 0, state: 'ko' };
+}
 function estimate() {
   const sim = CFG.sim, p = S.prest;
   const unit = p && p.prix_base > 0 ? Number(p.prix_base) : sim.unit_price;
   const chosen = sim.options.filter((o) => S.opts.has(o.key));
   const total = unit * S.qty + chosen.reduce((s, o) => s + o.price, 0);
   const r5 = (x) => Math.round(x / 5) * 5;
-  const min = r5(Math.max(0, total * (1 + sim.range_low / 100)));
-  return { chosen, min, max: Math.max(min, r5(total * (1 + sim.range_high / 100))) };
+  const pr = promoInfo(), k = 1 - pr.pct / 100;
+  const min = r5(Math.max(0, total * (1 + sim.range_low / 100) * k));
+  return { chosen, min, max: Math.max(min, r5(total * (1 + sim.range_high / 100) * k)), pr };
+}
+
+function applyUserTexts() {
+  const lx = lxOf();
+  $('heroTagline').textContent = lx.tagline || CFG.tagline; $('heroDescription').textContent = lx.description || CFG.description;
 }
 
 function simInit() {
@@ -553,6 +1045,7 @@ function simInit() {
   if (!S.prest || !PRESTS.find((p) => p.id === S.prest.id)) S.prest = PRESTS[0] || null;
   else S.prest = PRESTS.find((p) => p.id === S.prest.id);
   const masque = sim.mode === 'masque';
+  show('promoField', !!(feat(CFG).promo && (CFG.extras || {}).promo_remise > 0 && (CFG.extras || {}).promo_code) && !masque);
   $('simIntro').textContent = masque ? 'Décrivez votre besoin en quelques clics : le professionnel étudie votre demande et vous répond avec un prix sur mesure.' : 'Choisissez votre besoin, ajustez les options : vous obtenez une estimation immédiate, sans engagement.';
   $('simToResult').textContent = masque ? 'Continuer' : 'Voir mon estimation';
   const r = $('simQty'); r.min = sim.qty_min; r.max = sim.qty_max; r.value = sim.qty_default;
@@ -585,7 +1078,7 @@ function keepInView() {
 }
 function simGo(step, silent) {
   S.step = step;
-  if (step === 4) buildResult();
+  if (step === 4) { promoFeedback(); buildResult(); }
   document.querySelectorAll('.sim-step').forEach((s) => s.classList.toggle('active', +s.dataset.step === step));
   const shown = Math.min(step, 4);
   $('simStepLabel').textContent = step === 5 ? 'Terminé' : `Étape ${shown} sur 4`;
@@ -599,6 +1092,12 @@ function buildResult() {
     ? `<small>Estimation indicative</small><div class="sim-result-price">${fmt(e.min)}€ – ${fmt(e.max)}€</div><div class="sim-recap">${recap}</div>`
     : `<small>Votre demande</small><div class="sim-recap" style="font-size:.95rem;color:var(--ink);font-weight:600">${recap}</div><div class="sim-recap">Le professionnel vous répond avec un prix adapté.</div>`;
 }
+function promoFeedback() {
+  const pr = promoInfo(), m = $('promoMsg');
+  m.className = pr.state === 'ok' ? 'promo-ok' : pr.state === 'ko' ? 'promo-ko' : '';
+  m.textContent = pr.state === 'ok' ? `Code appliqué : -${pr.pct} %` : pr.state === 'ko' ? 'Code non valide' : '';
+}
+$('simCode').addEventListener('input', () => { promoFeedback(); if (S.step === 4) buildResult(); });
 function markStart() { if (!S.started) { S.started = true; track('sim_start', S.prest ? S.prest.titre : ''); } }
 
 simCard.addEventListener('click', (e) => {
@@ -619,20 +1118,21 @@ $('simSend').addEventListener('click', async () => {
   try {
     const res = await fetch(API + '/api/devis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
       nom, email, tel: $('simTel').value.trim(), message: $('simMsg').value.trim(), website: $('simWebsite').value,
-      prestation_id: S.prest ? S.prest.id : null, prestation: S.prest ? S.prest.titre : '', quantite: S.qty, options: [...S.opts] }) });
+      prestation_id: S.prest ? S.prest.id : null, prestation: S.prest ? S.prest.titre : '', quantite: S.qty, options: [...S.opts], code: $('simCode').value.trim(), lang: curLang() }) });
     const data = await res.json();
     if (!res.ok || !data.ok) throw new Error(data.error || 'Erreur');
     $('simDoneResult').innerHTML = data.estimate
       ? `<small>Estimation indicative</small><div class="sim-result-price">${fmt(data.estimate.min)}€ – ${fmt(data.estimate.max)}€</div>`
       : `<small>Demande enregistrée</small><div class="sim-recap" style="font-size:.95rem;color:var(--ink);font-weight:600">${esc(S.prest ? S.prest.titre : '')}</div>`;
     $('simDoneText').textContent = `${CFG.nom_entreprise} a bien reçu votre demande et vous répond à ${email}.`;
+    const pdf = $('simPdf'); show('simPdf', !!data.pdf_url); if (data.pdf_url) pdf.href = API + data.pdf_url;
     simGo(5);
   } catch (err) {
     msg.textContent = err.message === 'Failed to fetch' ? 'Connexion impossible. Vérifiez votre réseau et réessayez.' : (err.message || "L'envoi a échoué, réessayez.");
   } finally { btn.disabled = false; btn.textContent = 'Envoyer ma demande'; }
 });
 $('simReset').addEventListener('click', () => {
-  ['simNom', 'simTel', 'simEmail', 'simMsg'].forEach((id) => ($(id).value = ''));
+  ['simNom', 'simTel', 'simEmail', 'simMsg', 'simCode'].forEach((id) => ($(id).value = '')); promoFeedback();
   S.started = false; simInit(); simGo(1);
 });
 
@@ -654,6 +1154,107 @@ $('contactForm').addEventListener('submit', async (e) => {
   if (ok) { msg.className = 'form-msg ok'; msg.textContent = CFG.formspree_id ? 'Message envoyé. Vous recevez une confirmation par email.' : 'Message envoyé. Nous revenons vers vous rapidement.'; $('contactForm').reset(); toast('Message envoyé ✓'); }
   else msg.textContent = "L'envoi a échoué. Réessayez ou contactez-nous directement par téléphone.";
   btn.disabled = false; btn.textContent = 'Envoyer le message';
+});
+
+/* ══════════ À propos + chiffres clés ══════════ */
+function renderApropos(F, X) {
+  const on = F.apropos && (X.apropos_texte || X.apropos_image);
+  show('apropos', !!on); show('navApropos', !!on); if (!on) return;
+  $('aboutTitre').textContent = X.apropos_titre || 'À propos'; $('aboutTexte').textContent = X.apropos_texte || '';
+  const im = $('aboutImg'); show('aboutImg', !!X.apropos_image); if (X.apropos_image) { im.src = img(X.apropos_image); im.alt = X.apropos_titre || ''; }
+  $('aboutBox').classList.toggle('solo', !X.apropos_image);
+  $('aboutStats').innerHTML = (X.chiffres || []).map((c) => `<div class="stat"><b>${esc(c.n)}</b><span>${esc(c.l)}</span></div>`).join('');
+}
+
+/* ══════════ Newsletter ══════════ */
+function renderNewsletter(F, X) {
+  show('newsletter', !!F.newsletter); if (!F.newsletter) return;
+  $('nlTitre').textContent = X.newsletter_titre || 'Restez informé';
+  $('nlTexte').textContent = X.newsletter_texte || 'Recevez nos actualités et nos offres. Pas de spam, désinscription en un clic.';
+  $('nlConsentTxt').textContent = `J'accepte de recevoir les emails de ${CFG.nom_entreprise}. Je peux me désinscrire à tout moment.`;
+}
+$('nlForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = $('nlMsg'), btn = $('nlBtn'), email = $('nlEmail').value.trim();
+  msg.className = 'form-msg err';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = 'Indiquez un email valide.'; return; }
+  if (!$('nlConsent').checked) { msg.textContent = 'Cochez la case pour accepter de recevoir nos emails.'; return; }
+  btn.disabled = true; msg.textContent = '';
+  try {
+    const r = await fetch(API + '/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, consent: true, website: $('nlWebsite').value, lang: curLang(), source: 'site' }) });
+    const d = await r.json(); if (!r.ok || !d.ok) throw new Error(d.error || 'Erreur');
+    msg.className = 'form-msg ok'; msg.textContent = 'Merci ! Vous êtes bien inscrit(e).'; $('nlForm').reset(); toast('Inscription confirmée ✓');
+  } catch (err) { msg.textContent = err.message === 'Failed to fetch' ? 'Connexion impossible. Réessayez.' : (err.message || "L'inscription a échoué, réessayez."); }
+  btn.disabled = false;
+});
+
+/* ══════════ Réseaux sociaux + avis Google ══════════ */
+const SOC = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok', youtube: 'YouTube', linkedin: 'LinkedIn' };
+function renderSocials(F, X) {
+  const r = X.reseaux || {}, keys = Object.keys(SOC).filter((k) => r[k]);
+  const on = F.reseaux && (keys.length || r.google_avis); show('socials', !!on); if (!on) return;
+  $('socials').innerHTML = keys.map((k) => `<a href="${esc(r[k])}" target="_blank" rel="noopener noreferrer" data-cta="social-${k}">${SOC[k]}</a>`).join('')
+    + (r.google_avis ? `<a class="gavis" href="${esc(r.google_avis)}" target="_blank" rel="noopener noreferrer" data-cta="google-avis">★ Laisser un avis Google</a>` : '');
+}
+
+/* ══════════ Mentions légales + confidentialité (générées, en français) ══════════ */
+function renderLegalLinks(F) { show('legalLinks', !!F.legal); }
+function legalHtml(kind) {
+  const c = CFG, F = feat(c), X = c.extras || {}, L = X.legal || {}, nom = L.raison || c.nom_entreprise, mail = L.email || c.email_contact;
+  const p = (t) => `<p>${t}</p>`;
+  if (kind === 'mentions') {
+    return `<h3>Éditeur du site</h3>${p(`${esc(nom)}${L.forme ? ' — ' + esc(L.forme) : ''}${L.siret ? '<br>SIRET : ' + esc(L.siret) : ''}<br>${esc(L.adresse || c.adresse)}<br>Email : ${esc(mail)}${c.telephone ? '<br>Téléphone : ' + esc(c.telephone) : ''}${L.tva ? '<br>' + esc(L.tva) : ''}`)}
+${p(`Directeur de la publication : ${esc(L.directeur || nom)}.`)}
+<h3>Hébergement</h3>${p('Cloudflare, Inc. — 101 Townsend St, San Francisco, CA 94107, États-Unis — cloudflare.com')}
+<h3>Conception du site</h3>${p('ByEmreh — byemreh.fr')}
+<h3>Propriété intellectuelle</h3>${p(`Les textes, images et éléments graphiques de ce site sont la propriété de ${esc(nom)} ou utilisés avec l'autorisation de leurs auteurs. Toute reproduction sans accord préalable est interdite.`)}`;
+  }
+  const sub = [['Cloudflare', 'hébergement du site et de la base de données']];
+  sub.push(['Resend', "envoi des emails (réponses aux demandes de devis" + (F.newsletter ? ' et lettre d\'information' : '') + ')']);
+  if (c.formspree_id) sub.push(['Formspree', 'transmission des messages du formulaire de contact']);
+  if (c.cal_link && F.rdv) sub.push(['Cal.com', 'prise de rendez-vous']);
+  if (F.horaires && X.carte) sub.push(['Google Maps', 'carte, chargée uniquement après votre clic']);
+  if (F.produits) sub.push(['Stripe', 'paiement sécurisé, sur sa propre page']);
+  return `<h3>Responsable du traitement</h3>${p(`${esc(nom)} — contact : ${esc(mail)}`)}
+<h3>Données collectées et finalités</h3><ul>
+<li>Formulaire de contact : nom, email, téléphone, message — pour vous répondre.</li>
+${F.simulateur ? '<li>Demande de devis : nom, email, téléphone, précisions et choix du simulateur — pour établir et vous envoyer une estimation.</li>' : ''}
+${F.newsletter ? '<li>Lettre d\'information : adresse email — uniquement si vous cochez la case de consentement. Désinscription possible à tout moment par le lien présent dans chaque email.</li>' : ''}
+<li>Statistiques de fréquentation : mesures anonymes, sans cookie et sans identifiant personnel.</li></ul>
+<h3>Destinataires et sous-traitants</h3><ul>${sub.map(([n, d]) => `<li>${n} : ${d}.</li>`).join('')}</ul>
+<h3>Durée de conservation</h3>${p('Les demandes de contact et de devis sont conservées 3 ans après le dernier échange' + (F.newsletter ? ', et les inscriptions à la lettre d\'information jusqu\'à désinscription' : '') + '.')}
+<h3>Cookies</h3>${p("Ce site ne dépose pas de cookie de suivi ni de publicité. Les services tiers que vous choisissez d'utiliser (calendrier, carte, paiement) peuvent en déposer selon leurs propres règles.")}
+<h3>Vos droits</h3>${p(`Vous pouvez demander l'accès, la rectification, l'effacement, la limitation ou la portabilité de vos données, et vous opposer à leur traitement, en écrivant à ${esc(mail)}. Vous pouvez aussi saisir la CNIL (cnil.fr).`)}`;
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-legal]'); if (!b) return;
+  $('legalTitre').textContent = b.dataset.legal === 'mentions' ? 'Mentions légales' : 'Politique de confidentialité';
+  $('legalBody').innerHTML = legalHtml(b.dataset.legal);
+  $('legalOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; $('legalClose').focus();
+});
+function closeLegal() { $('legalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+$('legalClose').onclick = closeLegal;
+$('legalOverlay').addEventListener('click', (e) => { if (e.target === $('legalOverlay')) closeLegal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLegal(); });
+
+/* ══════════ Langues ══════════ */
+function setupLang(F, X) {
+  const langs = F.langues ? ['fr', ...(X.langues || [])] : ['fr'];
+  show('lang', langs.length > 1);
+  const saved = (() => { try { return localStorage.getItem('lang'); } catch (e) { return null; } })();
+  const nav = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+  let want = saved && langs.includes(saved) ? saved : langs.includes(nav) ? nav : 'fr';
+  if (!F.langues) want = 'fr';
+  $('langMenu').innerHTML = langs.map((l) => `<button type="button" role="menuitemradio" data-lang="${l}" aria-checked="${l === want}" data-notr><span>${LANG_NAMES[l]}</span><span>${l.toUpperCase()}</span></button>`).join('');
+  $('langCur').textContent = want.toUpperCase();
+  if (I18.lang !== want) { I18.set(want); if (want !== 'fr') { applyUserTexts(); renderPromo(F, X); applySeo(CFG, F, X); } }
+}
+$('langBtn').addEventListener('click', (e) => { e.stopPropagation(); const l = $('lang'); l.classList.toggle('open'); $('langBtn').setAttribute('aria-expanded', l.classList.contains('open')); });
+document.addEventListener('click', (e) => { if (!e.target.closest('#lang')) { $('lang').classList.remove('open'); $('langBtn').setAttribute('aria-expanded', 'false'); } });
+$('langMenu').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-lang]'); if (!b) return;
+  try { localStorage.setItem('lang', b.dataset.lang); } catch (err) { /* ignore */ }
+  $('lang').classList.remove('open'); I18.set(b.dataset.lang); render(DATA);
 });
 
 loadSite();
